@@ -83,7 +83,7 @@ export default function CourseDetailPage() {
 
       </div>
 
-      {/* Right Video Player */}
+      {/* Right Video Player */} 
       <div className="lg:col-span-3 bg-white dark:bg-[#0c1427] shadow rounded-lg p-4">
         {currentVideo ? (
           <>
