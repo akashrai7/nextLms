@@ -75,17 +75,13 @@ import Course from "@/models/Course";
 import Video from "@/models/Video";
 import { Types } from "mongoose";
 
-// 👇 Correct typing for params
-type Params = {
-  params: {
-    id: string;
-  };
-};
-
-export async function GET(req: Request, { params }: Params) {
+export async function GET(
+  _req: Request,
+  context: { params: { id: string } }
+) {
   try {
     await dbConnect();
-    const { id } = params;
+    const { id } = context.params;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -118,10 +114,13 @@ export async function GET(req: Request, { params }: Params) {
   }
 }
 
-export async function DELETE(req: Request, { params }: Params) {
+export async function DELETE(
+  _req: Request,
+  context: { params: { id: string } }
+) {
   try {
     await dbConnect();
-    const { id } = params;
+    const { id } = context.params;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json(
