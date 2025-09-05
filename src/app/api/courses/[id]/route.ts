@@ -69,6 +69,7 @@ export async function DELETE(
   }
 }
 */
+
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/db";
 import Course from "@/models/Course";
@@ -76,13 +77,10 @@ import Video from "@/models/Video";
 import { Types } from "mongoose";
 
 // GET handler
-export async function GET(
-  _req: Request,
-  context: { params: Record<string, string> } // ✅ यही सही type है
-) {
+export async function GET(_req: Request, { params }: any) {
   try {
     await dbConnect();
-    const id = context.params.id;
+    const { id } = params;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -116,13 +114,10 @@ export async function GET(
 }
 
 // DELETE handler
-export async function DELETE(
-  _req: Request,
-  context: { params: Record<string, string> }
-) {
+export async function DELETE(_req: Request, { params }: any) {
   try {
     await dbConnect();
-    const id = context.params.id;
+    const { id } = params;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json(
