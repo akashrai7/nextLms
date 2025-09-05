@@ -32,6 +32,7 @@ const eslintConfig = [
     rules: {
       // ✅ "any" type allow kar do abhi
       "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
     },
   },
 ];
