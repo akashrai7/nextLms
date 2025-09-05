@@ -75,13 +75,14 @@ import Course from "@/models/Course";
 import Video from "@/models/Video";
 import { Types } from "mongoose";
 
+// GET handler
 export async function GET(
-  req: Request,
-  context: { params: { id: string } } // ✅ यही सही typing है
+  _req: Request,
+  context: { params: Record<string, string> } // ✅ यही सही type है
 ) {
   try {
     await dbConnect();
-    const { id } = context.params;
+    const id = context.params.id;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -98,17 +99,13 @@ export async function GET(
       );
     }
 
-    // इस course के सारे videos fetch करो
     const videos = await Video.find({ courseId: id })
-      .sort({ orderIndex: 1 }) // ordered playlist
+      .sort({ orderIndex: 1 })
       .lean();
 
     return NextResponse.json({
       success: true,
-      data: {
-        ...course,
-        videos,
-      },
+      data: { ...course, videos },
     });
   } catch (e: any) {
     return NextResponse.json(
@@ -118,13 +115,14 @@ export async function GET(
   }
 }
 
+// DELETE handler
 export async function DELETE(
- req: Request,
-  context: { params: { id: string } }
+  _req: Request,
+  context: { params: Record<string, string> }
 ) {
   try {
     await dbConnect();
-    const { id } = context.params;
+    const id = context.params.id;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -141,10 +139,7 @@ export async function DELETE(
       );
     }
 
-    // Cascade delete: पहले videos हटाओ
     await Video.deleteMany({ courseId: id });
-
-    // फिर course delete करो
     await Course.findByIdAndDelete(id);
 
     return NextResponse.json({
@@ -158,6 +153,7 @@ export async function DELETE(
     );
   }
 }
+
 
 /*
 import { NextResponse } from "next/server";
