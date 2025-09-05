@@ -53,9 +53,9 @@ export default function StudentDashboard() {
                 </div>
                 <div>
                   <span className="block font-semibold text-white text-md">
-                    75h
+                    75
                   </span>
-                  <span className="block text-gray-200">Hours Spent</span>
+                  <span className="block text-gray-200">Total Schools</span>
                 </div>
               </div>
 
@@ -67,7 +67,7 @@ export default function StudentDashboard() {
                   <span className="block font-semibold text-white text-md">
                     15
                   </span>
-                  <span className="block text-gray-200">Courses Completed</span>
+                  <span className="block text-gray-200">Total Users</span>
                 </div>
               </div>
             </div>
