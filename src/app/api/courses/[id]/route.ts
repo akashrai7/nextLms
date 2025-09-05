@@ -98,17 +98,13 @@ export async function GET(
       );
     }
 
-    // इस course के सारे videos fetch करो
     const videos = await Video.find({ courseId: id })
-      .sort({ orderIndex: 1 }) // ordered playlist
+      .sort({ orderIndex: 1 })
       .lean();
 
     return NextResponse.json({
       success: true,
-      data: {
-        ...course,
-        videos,
-      },
+      data: { ...course, videos },
     });
   } catch (e: any) {
     return NextResponse.json(
@@ -119,8 +115,8 @@ export async function GET(
 }
 
 export async function DELETE(
-  _req: Request,
-  context: { params: { id: string } }
+  req: Request,
+  context: { params: { id: string } } // ✅ same fix here
 ) {
   try {
     await dbConnect();
@@ -141,10 +137,7 @@ export async function DELETE(
       );
     }
 
-    // Cascade delete: पहले videos हटाओ
     await Video.deleteMany({ courseId: id });
-
-    // फिर course delete करो
     await Course.findByIdAndDelete(id);
 
     return NextResponse.json({
