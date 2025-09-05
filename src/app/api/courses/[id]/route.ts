@@ -76,8 +76,8 @@ import Video from "@/models/Video";
 import { Types } from "mongoose";
 
 export async function GET(
-  _req: Request,
-  context: { params: { id: string } }
+  req: Request,
+  context: { params: { id: string } } // ✅ यही सही typing है
 ) {
   try {
     await dbConnect();
