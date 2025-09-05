@@ -76,8 +76,8 @@ import Video from "@/models/Video";
 import { Types } from "mongoose";
 
 export async function GET(
-  _req: Request,
-  context: { params: { id: string } }
+  req: Request,
+  context: { params: { id: string } } // ✅ यही सही typing है
 ) {
   try {
     await dbConnect();
@@ -98,13 +98,17 @@ export async function GET(
       );
     }
 
+    // इस course के सारे videos fetch करो
     const videos = await Video.find({ courseId: id })
-      .sort({ orderIndex: 1 })
+      .sort({ orderIndex: 1 }) // ordered playlist
       .lean();
 
     return NextResponse.json({
       success: true,
-      data: { ...course, videos },
+      data: {
+        ...course,
+        videos,
+      },
     });
   } catch (e: any) {
     return NextResponse.json(
@@ -115,7 +119,7 @@ export async function GET(
 }
 
 export async function DELETE(
-  _req: Request,
+ req: Request,
   context: { params: { id: string } }
 ) {
   try {
@@ -137,7 +141,10 @@ export async function DELETE(
       );
     }
 
+    // Cascade delete: पहले videos हटाओ
     await Video.deleteMany({ courseId: id });
+
+    // फिर course delete करो
     await Course.findByIdAndDelete(id);
 
     return NextResponse.json({
