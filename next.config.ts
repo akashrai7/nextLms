@@ -8,7 +8,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  
+  nitro: {
+      preset: "vercel",
+    },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     // Additional Sass options can go here
