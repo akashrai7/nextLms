@@ -69,7 +69,6 @@ export async function DELETE(
   }
 }
 */
-
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/db";
 import Course from "@/models/Course";
@@ -78,25 +77,28 @@ import { Types } from "mongoose";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     await dbConnect();
-    const { id } = params;
+    const { id } = context.params;
 
     if (!Types.ObjectId.isValid(id)) {
-      return NextResponse.json({ success: false, message: "Invalid course id" }, { status: 400 });
+      return NextResponse.json(
+        { success: false, message: "Invalid course id" },
+        { status: 400 }
+      );
     }
 
-    const course = await Course.findById(id);
+    const course = await Course.findById(id).lean();
     if (!course) {
-      return NextResponse.json({ success: false, message: "Course not found" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, message: "Course not found" },
+        { status: 404 }
+      );
     }
 
     // इस course के सारे videos fetch करो
-  ///  const videos = await Video.find({ course: id }).sort({ orderIndex: 1 });
-
-    // 🟢 Fetch related videos
     const videos = await Video.find({ courseId: id })
       .sort({ orderIndex: 1 }) // ordered playlist
       .lean();
@@ -105,42 +107,58 @@ export async function GET(
       success: true,
       data: {
         ...course,
-        videos, // attach videos array
+        videos,
       },
     });
   } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message || "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message: e.message || "Server error" },
+      { status: 500 }
+    );
   }
 }
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     await dbConnect();
-    const { id } = params;
+    const { id } = context.params;
 
     if (!Types.ObjectId.isValid(id)) {
-      return NextResponse.json({ success: false, message: "Invalid course id" }, { status: 400 });
+      return NextResponse.json(
+        { success: false, message: "Invalid course id" },
+        { status: 400 }
+      );
     }
 
     const course = await Course.findById(id);
     if (!course) {
-      return NextResponse.json({ success: false, message: "Course not found" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, message: "Course not found" },
+        { status: 404 }
+      );
     }
 
     // Cascade delete: पहले videos हटाओ
-    await Video.deleteMany({ course: id });
+    await Video.deleteMany({ courseId: id });
 
     // फिर course delete करो
     await Course.findByIdAndDelete(id);
 
-    return NextResponse.json({ success: true, message: "Course & videos deleted" });
+    return NextResponse.json({
+      success: true,
+      message: "Course & videos deleted",
+    });
   } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message || "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message: e.message || "Server error" },
+      { status: 500 }
+    );
   }
 }
+
 /*
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/db";
