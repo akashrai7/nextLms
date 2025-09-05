@@ -35,7 +35,8 @@ import Video from "@/models/Video";
 // }
 import Course from "@/models/Course";
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+// export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: any) {
   await dbConnect();
 
   try {

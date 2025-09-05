@@ -3,10 +3,11 @@ import { dbConnect } from "@/lib/db";
 import Current_class from "@/models/Current_class";
 
 // ➡️ Update
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
-  try {
+// export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(_req: Request, { params }: any) {
+try {
     await dbConnect();
-    const body = await req.json();
+    const body = await _req.json();
     const current_class = await Current_class.findByIdAndUpdate(params.id, body, { new: true });
 
     if (!current_class) {
@@ -19,7 +20,8 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // ➡️ Delete
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+//export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: any) {
   try {
     await dbConnect();
     const current_class = await Current_class.findByIdAndDelete(params.id);

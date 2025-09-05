@@ -3,10 +3,11 @@ import { dbConnect } from "@/lib/db";
 import Training_mode from "@/models/Training_mode";
 
 // ➡️ Update
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
-  try {
+// export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(_req: Request, { params }: any) {  
+try {
     await dbConnect();
-    const body = await req.json();
+    const body = await _req.json();
     const training_mode = await Training_mode.findByIdAndUpdate(params.id, body, { new: true });
 
     if (!training_mode) {
@@ -19,8 +20,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // ➡️ Delete
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  try {
+// export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: any) {  
+try {
     await dbConnect();
     const training_mode = await Training_mode.findByIdAndDelete(params.id);
 

@@ -3,10 +3,11 @@ import { dbConnect } from "@/lib/db";
 import Institute_type from "@/models/Institute_type";
 
 // ➡️ Update
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+// export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(_req: Request, { params }: any) {
   try {
     await dbConnect();
-    const body = await req.json();
+    const body = await _req.json();
     const institute_type = await Institute_type.findByIdAndUpdate(params.id, body, { new: true });
 
     if (!institute_type) {
@@ -19,8 +20,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // ➡️ Delete
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  try {
+// export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: any) {
+try {
     await dbConnect();
     const institute_type = await Institute_type.findByIdAndDelete(params.id);
 

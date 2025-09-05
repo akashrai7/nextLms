@@ -3,10 +3,11 @@ import { dbConnect } from "@/lib/db";
 import Gender from "@/models/Gender";
 
 // ➡️ Update
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+// export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(_req: Request, { params }: any) {
   try {
     await dbConnect();
-    const body = await req.json();
+    const body = await _req.json();
     const gender = await Gender.findByIdAndUpdate(params.id, body, { new: true });
 
     if (!gender) {
@@ -19,8 +20,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // ➡️ Delete
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  try {
+// export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: any) {
+try {
     await dbConnect();
     const gender = await Gender.findByIdAndDelete(params.id);
 

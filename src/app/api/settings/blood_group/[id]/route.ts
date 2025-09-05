@@ -3,10 +3,11 @@ import { dbConnect } from "@/lib/db";
 import Blood_group from "@/models/Blood_group";
 
 // ➡️ Update 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+//export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(_req: Request, { params }: any) {
   try {
     await dbConnect();
-    const body = await req.json();
+    const body = await _req.json();
     const blood_group = await Blood_group.findByIdAndUpdate(params.id, body, { new: true });
 
     if (!blood_group) {
@@ -19,7 +20,8 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // ➡️ Delete
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+//export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: any) {
   try {
     await dbConnect();
     const blood_group = await Blood_group.findByIdAndDelete(params.id);

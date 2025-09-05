@@ -3,10 +3,11 @@ import { dbConnect } from "@/lib/db";
 import Stream from "@/models/Stream";
 
 // ➡️ Update
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
-  try {
+// export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(_req: Request, { params }: any) {  
+try {
     await dbConnect();
-    const body = await req.json();
+    const body = await _req.json();
     const stream = await Stream.findByIdAndUpdate(params.id, body, { new: true });
 
     if (!stream) {
@@ -19,7 +20,8 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // ➡️ Delete
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+// export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: any) {
   try {
     await dbConnect();
     const stream = await Stream.findByIdAndDelete(params.id);
