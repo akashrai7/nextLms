@@ -1,49 +1,3 @@
-// "use client";
-
-// import Link from "next/link";
-// import React, { useEffect, useState } from "react";
-
-// interface Course {
-//   _id: string;
-//   title: string;
-//   slug: string;
-//   thumbnail: string;
-//   shortDescription: string;
-// }
-
-// export default function CoursesPage() {
-//   const [courses, setCourses] = useState<Course[]>([]);
-
-//   useEffect(() => {
-//     fetch("/api/courses")
-//       .then((res) => res.json())
-//       .then((data) => setCourses(data));
-//   }, []);
-
-//   return (
-//     <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-//       {Array.isArray(courses) && courses.map((course) => (
-//   <div key={course._id} className="bg-white shadow rounded-xl p-4">
-//     <img
-//       src={course.thumbnail}
-//       alt={course.title}
-//       className="rounded-lg w-full h-40 object-cover"
-//     />
-//     <h2 className="text-lg font-bold mt-3">{course.title}</h2>
-//     <p className="text-sm text-gray-500">{course.shortDescription}</p>
-//     <Link
-//       href={`/courses/${course.slug}`}
-//       className="inline-block mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg"
-//     >
-//       View Details
-//     </Link>
-//   </div>
-// ))}
-
-//     </div>
-//   );
-// }
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -114,43 +68,87 @@ export default function CoursesPage() {
       {courses.length === 0 ? (
         <p className="text-gray-500">No courses available.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-[25px] mb-[25px]">
           {courses.map((course) => (
-            <div
-              key={course._id}
-              className="bg-white dark:bg-[#0c1427] shadow rounded-lg p-4 flex flex-col"
-            >
-              {/* Thumbnail */}
-              {course.thumbnailUrl ? (
-                <img
-                  src={course.thumbnailUrl}
-                  alt={course.title}
-                  className="rounded-lg w-full h-40 object-cover mb-3"
-                />
-              ) : (
-                <div className="w-full h-40 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center mb-3">
-                  <span className="text-gray-500">{course.title}</span>
+      
+                <div
+                   key={course._id}
+                  className="trezo-card bg-white dark:bg-[#0c1427]  md:p-[0px] rounded-md"
+                >
+                  <div className="trezo-card-content">
+                    <div className="relative mb-[2px]">
+                      <Link href={`/lms/course-details/${course._id}`} className="block rounded-md" target="_blank">
+                        {/* src={course.thumbnailUrl} */}
+                      <img
+                          key={course._id}
+                          src="https://trezo-bs.envytheme.com/images/events/event9.jpg"
+                          alt="event-image"
+                          className="rounded-md "
+                          width={700}
+                          height={467}/>
+                       </Link>
+      
+                      <div className="absolute bg-primary-500 top-0 text-white font-bold flex items-center justify-center ltr:right-0 rtl:left-0 text-md w-[60px] h-[60px] rounded-md z-[1]">
+                        10th
+                      </div>
+                      <div className="absolute top-0 ltr:right-0 rtl:left-0 w-[65px] h-[65px] bg-white dark:bg-[#0a0e19] ltr:rounded-bl-md rtl:rounded-br-md"></div>
+                    </div>
+      <div className="p-[20px]">
+                    <h6 className="!text-lg !mb-[10px]">
+                      <Link
+                       key={course._id}
+                        href={`/lms/my-course/${course._id}`}
+                        className="text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        {course.title}
+                      </Link>
+                    </h6>
+      {/* {course.category} */}
+                    <p>Course Description Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      
+                    <div className="flex items-center">
+                      
+                        <img
+                          src="https://trezo-bs.envytheme.com/images/users/user26.jpg"
+                          alt="user-image"
+                          className="rounded-full w-[40px] h-[40px] ltr:-mr-[12px] rtl:-ml-[12px] ltr:last:mr-0 rtl:last:ml-0 border-[2px] border-gray-100 dark:border-[#172036]"
+                          width={40}
+                          height={40}
+                        />
+                         <img
+                          src="https://trezo-bs.envytheme.com/images/users/user27.jpg"
+                          alt="user-image"
+                          className="rounded-full w-[40px] h-[40px] ltr:-mr-[12px] rtl:-ml-[12px] ltr:last:mr-0 rtl:last:ml-0 border-[2px] border-gray-100 dark:border-[#172036]"
+                          width={40}
+                          height={40}
+                        />
+                     
+                    </div>
+      
+                    <div className="mt-[20px]">
+                      <div className="flex items-center justify-between mb-[8px]">
+                        <span className="block">Complete</span>
+                        <span className="block font-semibold text-black dark:text-white">
+                          75%
+                        </span>
+                      </div>
+      
+                      <div className="flex w-full h-[4px] overflow-hidden rounded-md bg-primary-50 dark:bg-[#172036]">
+                        <div
+                          className="flex flex-col justify-center overflow-hidden bg-primary-500 rounded-md"
+                          // style={{
+                          //   width: `${(3454 / 4000) * 100}%`,
+                          // }}
+                          style={{ width:`75%`}}
+                        ></div>
+                      </div>
+                    </div>
+      </div>
+                  </div>
                 </div>
-              )}
-
-              {/* Title */}
-              <h2 className="text-lg font-semibold">{course.title}</h2>
-              <p className="text-sm text-gray-500">{course.category}</p>
-
-              {/* Description */}
-              <p className="text-sm mt-2 flex-grow">
-                {course.description?.slice(0, 80)}...
-              </p>
-
-              {/* Button */}
-              <Link
-                href={`/lms/my-course/${course._id}`}
-                className="mt-3 px-4 py-2 bg-primary-500 text-white rounded-md text-center hover:bg-primary-600 transition"
-              >
-                View Details
-              </Link>
-            </div>
-          ))}
+             
+      
+                        ))}
         </div>
       )}
     </div>
