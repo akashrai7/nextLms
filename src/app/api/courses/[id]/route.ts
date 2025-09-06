@@ -77,10 +77,10 @@ import Video from "@/models/Video";
 import { Types } from "mongoose";
 
 // GET handler
-export async function GET(_req: Request, { params }: any) {
+export async function GET(_req: Request, context: { params: Promise<{ id: string }> }) {
   try {
     await dbConnect();
-    const { id } = params;
+    const { id } = await context.params;
 
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json(

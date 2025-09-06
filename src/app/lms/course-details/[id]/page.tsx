@@ -96,7 +96,7 @@ export default function CourseDetailPage() {
               </div>
               <div className="trezo-card-content">
                 <div className="flex items-center">
-                  <img 
+                  <img  key="video._id"
                     src="/images/events/event9.jpg"
                     alt="user-image"
                     className="rounded-full w-[100px]"
@@ -169,7 +169,7 @@ export default function CourseDetailPage() {
                             <tr>
                               <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                 <div className="flex items-center">
-                                  <img
+                                  <img key="video._id"
                                     src="https://trezo-bs.envytheme.com/images/events/event7.jpg"
                                     className="inline-block rounded-full w-[44px]"
                                     alt="product-image"
@@ -192,7 +192,7 @@ export default function CourseDetailPage() {
                             <tr>
                              
           
-                              <td colSpan={2} className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                              <td  className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                 <div className="flex items-center">
                                  
                                   <span className="font-medium inline-block ltr:ml-[12px] rtl:mr-[12px]">
