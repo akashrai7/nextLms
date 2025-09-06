@@ -95,9 +95,11 @@ export default function CoursesPage() {
                     </div>
       <div className="p-[20px]">
                     <h6 className="!text-lg !mb-[10px]">
+                       {/* href={`/lms/my-course/${course._id}`} */}
                       <Link
                        key={course._id}
-                        href={`/lms/my-course/${course._id}`}
+                       href={`/lms/course-details/${course._id}`}
+                       
                         className="text-black dark:text-white transition-all hover:text-primary-500"
                       >
                         {course.title}
