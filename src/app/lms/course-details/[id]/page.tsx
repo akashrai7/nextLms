@@ -166,7 +166,7 @@ export default function CourseDetailPage() {
                         <tbody className="text-black dark:text-white">
                         {course.videos && course.videos.length > 0 ? (
                             course.videos.map((video) => (  
-                            <tr>
+                            <tr key="video._id">
                               <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                 <div className="flex items-center">
                                   <img key="video._id"
