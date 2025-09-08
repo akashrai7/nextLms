@@ -87,8 +87,8 @@ export default function CourseDetailPage() {
         </ol>
       </div>
       {/* start */}
-      <div className="lg:grid lg:grid-cols-5 gap-[25px]">
-        <div className="lg:col-span-3">
+      <div className="lg:grid lg:grid-cols-12 gap-[25px]">
+        <div className="lg:col-span-8">
           <div className="trezo-card  dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
               <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                 <div className="trezo-card-title">
@@ -125,8 +125,8 @@ export default function CourseDetailPage() {
         </div>        
       </div>
 
-      <div className="lg:grid lg:grid-cols-5 gap-[25px]">
-        <div className="lg:col-span-3">
+      <div className="lg:grid lg:grid-cols-12 gap-[25px]">
+        <div className="lg:col-span-7">
           <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
               
               <div className="trezo-card-content">
@@ -208,7 +208,7 @@ export default function CourseDetailPage() {
           
           </div>
         </div>   
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-3">
           <div className="trezo-card bg-white dark:bg-[#0c1427]  md:p-[0px] rounded-md" >
               <div className="trezo-card-content">
                  <div className="relative mb-[2px]">
@@ -346,8 +346,8 @@ export default function CourseDetailPage() {
         </div>     
     </div>
       {/*end  */}
-    <div className="lg:grid lg:grid-cols-5 gap-[25px]">
-        <div className="lg:col-span-3">
+    <div className="lg:grid lg:grid-cols-12 gap-[25px]">
+        <div className="lg:col-span-7">
           <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
               <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                 <div className="trezo-card-title">
@@ -401,7 +401,7 @@ export default function CourseDetailPage() {
         </div>        
     
 
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-3">
           <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
                   <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                     <div className="trezo-card-title">
@@ -475,8 +475,8 @@ export default function CourseDetailPage() {
         </div>
     </div>
 
-    <div className="lg:grid lg:grid-cols-5 gap-[25px]">
-        <div className="lg:col-span-5">
+    <div className="lg:grid lg:grid-cols-12 gap-[25px]">
+        <div className="lg:col-span-10">
           <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
               <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                 <div className="trezo-card-title">
