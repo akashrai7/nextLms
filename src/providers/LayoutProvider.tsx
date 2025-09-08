@@ -33,8 +33,6 @@ const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
     "/front-pages/team/",
     "/front-pages/faq/",
     "/front-pages/contact/",
-    "/lms/course-details/view-videos/",
-    "/lms/course-details/view-videos/[id]/",
   ].includes(pathname);
 
   return (
