@@ -139,16 +139,16 @@ export default function CourseDetailPage() {
                  Welcome to the Digital Marketing Ultimate Course Bundle
                   - 12 Courses in 1 (Over 36 hours of content)
                 </p>
-                <p>In this practical hands-on training, you’re going to learn to become a digital marketing expert with this ultimate course bundle that includes 12 digital marketing courses in 1!</p>
+                <p>In this practical hands-on training, you&apos;re going to learn to become a digital marketing expert with this ultimate course bundle that includes 12 digital marketing courses in 1!</p>
                 <p>If you wish to find out the skills that should be covered in a basic digital marketing course syllabus in India or anywhere around the world, then reading this blog will help. Before we delve into the advanced digital marketing course syllabus,
-                   let’s look at the scope of digital marketing and what the future holds.</p>
+                   let&apos;s look at the scope of digital marketing and what the future holds.</p>
                 <p>We focus a great deal on the understanding of behavioral psychology and influence triggers
-                   which are crucial for becoming a well rounded Digital Marketer. We understand that theory is important to build a solid foundation, we understand that theory alone isn’t going to get the job done so that’s why this course is
+                   which are crucial for becoming a well rounded Digital Marketer. We understand that theory is important to build a solid foundation, we understand that theory alone isn&apos;t going to get the job done so that&apos;s why this course is
                    packed with practical hands-on examples that you can follow step by step.</p>
                 
                   <h4>
                 <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  What you’ll learn
+                  What you&apos;ll learn
                 </span>
                 </h4>
                 <div className="space-y-3">
@@ -480,7 +480,7 @@ export default function CourseDetailPage() {
           <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
               <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                 <div className="trezo-card-title">
-                  <h5 className="!mb-0">What you'll learn</h5>
+                  <h5 className="!mb-0">What you&apos;ll learn</h5>
                 </div>
               </div>
               <div className="trezo-card-content">

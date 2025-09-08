@@ -79,13 +79,13 @@ export default function CoursesPage() {
                     <div className="relative mb-[2px]">
                       <Link href={`/lms/course-details/${course._id}`} className="block rounded-md" >
                         {/* src={course.thumbnailUrl} */}
-                      <img
-                          key={course._id}
+                        <img key={course._id}
                           src="https://trezo-bs.envytheme.com/images/events/event9.jpg"
                           alt="event-image"
                           className="rounded-md "
                           width={700}
                           height={467}/>
+                      
                        </Link>
       
                       <div className="absolute bg-primary-500 top-0 text-white font-bold flex items-center justify-center ltr:right-0 rtl:left-0 text-md w-[60px] h-[60px] rounded-md z-[1]">
