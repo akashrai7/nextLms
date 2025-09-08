@@ -77,7 +77,7 @@ export default function CoursesPage() {
                 >
                   <div className="trezo-card-content">
                     <div className="relative mb-[2px]">
-                      <Link href={`/lms/course-details/${course._id}`} className="block rounded-md" target="_blank">
+                      <Link href={`/lms/course-details/${course._id}`} className="block rounded-md" >
                         {/* src={course.thumbnailUrl} */}
                       <img
                           key={course._id}
@@ -93,7 +93,7 @@ export default function CoursesPage() {
                       </div>
                       <div className="absolute top-0 ltr:right-0 rtl:left-0 w-[65px] h-[65px] bg-white dark:bg-[#0a0e19] ltr:rounded-bl-md rtl:rounded-br-md"></div>
                     </div>
-      <div className="p-[20px]">
+                  <div className="p-[20px]">
                     <h6 className="!text-lg !mb-[10px]">
                        {/* href={`/lms/my-course/${course._id}`} */}
                       <Link
@@ -145,7 +145,7 @@ export default function CoursesPage() {
                         ></div>
                       </div>
                     </div>
-      </div>
+                  </div>
                   </div>
                 </div>
              

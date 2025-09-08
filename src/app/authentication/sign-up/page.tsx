@@ -1,16 +1,3 @@
-// import DarkMode from "@/components/Authentication/DarkMode"; 
-// import SignUpForm from "@/components/Authentication/SignUpForm";
-
-
-// export default function Page() {
-//   return (
-//     <>
-//       <DarkMode />
-      
-//       <SignUpForm />
-//     </>
-//   );
-// }
 "use client";
 
 import React, { useState } from "react";
@@ -113,18 +100,7 @@ export default function RegisterPage() {
                 </p>
               </div>
 
-               {/* Message box */}
-              {message && (
-                <div
-                  className={`mb-4 p-3 rounded ${
-                    message.type === "success"
-                      ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
-                >
-                  {message.text}
-                </div>
-              )}
+              
 
 
              <form onSubmit={handleSubmit} className="space-y-4">
@@ -182,6 +158,9 @@ export default function RegisterPage() {
                   type="tel"
                   className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
                   placeholder="Enter your mobile number"
+                  maxLength={10}   // ✅ max digits
+                  minLength={10}   // ✅ min digits
+                  required
                 />
               </div>
 
@@ -251,7 +230,19 @@ export default function RegisterPage() {
                 />
                
               </div>
-                {message && <p className={message.type}>{message.text}</p>}
+                 {/* Message box */}
+              {message && (
+                <div
+                  className={`mb-4 p-3 rounded ${
+                    message.type === "success"
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {message.text}
+                </div>
+              )}
+
               <button type="submit" className="md:text-md block w-full text-center transition-all rounded-md font-medium my-[20px] md:my-[25px] py-[12px] px-[25px] text-white bg-primary-500 hover:bg-primary-400"
                disabled={loading}>
                 <span className="flex items-center justify-center gap-[5px]">
