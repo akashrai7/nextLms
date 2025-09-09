@@ -105,7 +105,7 @@ export default function CoursesPage() {
                         {course.title}
                       </Link>
                     </h6>
-      {/* {course.category} */}
+                    {/* {course.category} */}
                     <p>Course Description Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
       
                     <div className="flex items-center">

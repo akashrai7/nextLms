@@ -529,7 +529,7 @@ export default function CourseDetailPage() {
           <div className="trezo-card bg-white dark:bg-[#0c1427] gap-[25px] md:p-[0px] rounded-md" >
               <div className="trezo-card-content">
                 <div className="trezo-card bg-white dark:bg-[#0c1427] p-6 rounded-lg shadow">
-  <h3 className="text-lg font-semibold mb-4">This course includes</h3>
+  <h5 className="text-lg font-semibold mb-4">This course includes</h5>
 
   <ul className="space-y-4">
     <li className="flex justify-between items-center text-gray-700 dark:text-gray-300">
