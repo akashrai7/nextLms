@@ -235,54 +235,7 @@ const AccountSettingsForm: React.FC = () => {
           </div>
         </div>
 
-        <h5 className="!text-lg !mb-[20px] !mt-[20px] md:!mt-[25px]">
-          Socials Profile
-        </h5>
-        <div className="sm:grid sm:grid-cols-2 sm:gap-[25px]">
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Facebook
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="https://www.facebook.com/"
-            />
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              X
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="https://x.com/"
-            />
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              LinkedIn
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="https://www.linkedin.com/"
-            />
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              YouTube
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="https://www.youtube.com/"
-            />
-          </div>
-        </div>
+      
 
         <div className="mt-[20px] md:mt-[25px]">
           <button

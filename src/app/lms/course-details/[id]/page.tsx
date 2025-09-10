@@ -98,11 +98,11 @@ export default function CourseDetailPage() {
       </div>
       {/* start */}
       <div className="lg:grid lg:grid-cols-12 gap-[25px]">
-        <div className="lg:col-span-8">
+        <div className="lg:col-span-9">
           <div className="trezo-card  dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
               <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                 <div className="trezo-card-title">
-                  <h3 className="!mb-0">The Complete Digital Marketing <br></br>Course - 12 Courses in 1</h3>
+                  <h3 className="!mb-0">{course.title}</h3>
                 </div>
               </div>
               <div className="trezo-card-content">
@@ -110,10 +110,7 @@ export default function CourseDetailPage() {
                   Course Description
                 </span> */}
                 <p className="justify">
-                  Satisfied conveying a dependent contented he gentleman agreeable do be.
-                   Warrant private blushes removed an in equally totally if.
-                    Delivered dejection necessary objection do Mr prevailed. 
-                    Mr feeling does chiefly cordial in do.
+                  {course.description}
                 </p>
                
             <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
@@ -136,89 +133,6 @@ export default function CourseDetailPage() {
       </div>
 
       <div className="lg:grid lg:grid-cols-12 gap-[25px]">
-
-        {/* <div className="lg:col-span-7">
-          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
-              
-              <div className="trezo-card-content">
-                <h4> 
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  Course Description
-                </span>
-                </h4>
-                <p>
-                 Welcome to the Digital Marketing Ultimate Course Bundle
-                  - 12 Courses in 1 (Over 36 hours of content)
-                </p>
-                <p>In this practical hands-on training, you&apos;re going to learn to become a digital marketing expert with this ultimate course bundle that includes 12 digital marketing courses in 1!</p>
-                <p>If you wish to find out the skills that should be covered in a basic digital marketing course syllabus in India or anywhere around the world, then reading this blog will help. Before we delve into the advanced digital marketing course syllabus,
-                   let&apos;s look at the scope of digital marketing and what the future holds.</p>
-                <p>We focus a great deal on the understanding of behavioral psychology and influence triggers
-                   which are crucial for becoming a well rounded Digital Marketer. We understand that theory is important to build a solid foundation, we understand that theory alone isn&apos;t going to get the job done so that&apos;s why this course is
-                   packed with practical hands-on examples that you can follow step by step.</p>
-                
-                  <h4>
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  What you&apos;ll learn
-                </span>
-                </h4>
-                <div className="space-y-3">
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Digital marketing course introduction</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Customer Life cycle</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>What is Search engine optimization(SEO)</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Facebook ADS</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Facebook Messenger Chatbot</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Search engine optimization tools</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Why SEO</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>URL Structure</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Featured Snippet</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>SEO tips and tricks</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Google tag manager</span>
-  </div>
-</div>
-
-                <p className="mt-6 text-gray-500 leading-relaxed">
-                  As it so contrasted oh estimating instrument. Size like body someone had. Are conduct viewing boy minutes warrant the expense? 
-                  Tolerably behavior may admit daughters offending her ask own. Praise effect wishes change way and any wanted. 
-                  Lively use looked latter regard had. Do he it part more last in.
-                </p>
-                
-              </div>
-          
-          </div>
-        </div>    */}
         <div className="lg:col-span-7">
           <div className="trezo-card bg-white dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
                   <div className="trezo-card-content">
@@ -271,76 +185,43 @@ export default function CourseDetailPage() {
                   Course Description
                 </span>
                 </h4>
-                <p>
-                 Welcome to the Digital Marketing Ultimate Course Bundle
-                  - 12 Courses in 1 (Over 36 hours of content)
-                </p>
-                <p>In this practical hands-on training, you&apos;re going to learn to become a digital marketing expert with this ultimate course bundle that includes 12 digital marketing courses in 1!</p>
-                <p>If you wish to find out the skills that should be covered in a basic digital marketing course syllabus in India or anywhere around the world, then reading this blog will help. Before we delve into the advanced digital marketing course syllabus,
-                   let&apos;s look at the scope of digital marketing and what the future holds.</p>
-                <p>We focus a great deal on the understanding of behavioral psychology and influence triggers
-                   which are crucial for becoming a well rounded Digital Marketer. We understand that theory is important to build a solid foundation, we understand that theory alone isn&apos;t going to get the job done so that&apos;s why this course is
-                   packed with practical hands-on examples that you can follow step by step.</p>
-                
+                <p className="justify-between">Artificial Intelligence (AI) is no longer science fiction 
+                — it&apos;s part of our homes, phones, workplaces, and even entertainment. 
+                But what exactly is AI? How does it compare with human intelligence?
+                 And where do we already encounter it in daily life?</p>
+<p className="justify-between">Everyday AI: Understanding the Basics (Level 1) is a beginner-friendly, 
+interactive course that introduces you to the fascinating world of AI.
+Through real-life examples, simple challenges, storytelling, 
+and hands-on activities, you’ll uncover what AI is, how it has evolved,
+ and why it matters in the modern world.</p>
+<p className="justify-between"> This course is the first step in your AI learning journey and is designed for absolute beginners
+ — no coding or prior technical knowledge required.</p>
+               
                   <h4>
                 <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  What you&apos;ll learn
+                  Who This Course Is For
                 </span>
                 </h4>
                 <div className="space-y-3">
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Digital marketing course introduction</span>
+    <span>Students and young learners curious about AI</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Customer Life cycle</span>
+    <span>Teachers & educators seeking a structured way to introduce AI in classrooms</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>What is Search engine optimization(SEO)</span>
+    <span>Professionals exploring AI for the first time</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Facebook ADS</span>
+    <span>Anyone who wants to understand AI in simple, practical terms</span>
   </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Facebook Messenger Chatbot</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Search engine optimization tools</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Why SEO</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>URL Structure</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Featured Snippet</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>SEO tips and tricks</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Google tag manager</span>
-  </div>
+  
 </div>
-
-                <p className="mt-6 text-gray-500 leading-relaxed">
-                  As it so contrasted oh estimating instrument. Size like body someone had. Are conduct viewing boy minutes warrant the expense? 
-                  Tolerably behavior may admit daughters offending her ask own. Praise effect wishes change way and any wanted. 
-                  Lively use looked latter regard had. Do he it part more last in.
-                </p>
-                
-              </div>
+</div>
           
           </div>
                         )}
@@ -351,61 +232,67 @@ export default function CourseDetailPage() {
               <div className="trezo-card-content">
                 <h4> 
                 <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  Curriculum
+                  Course Highlights
                 </span>
                 </h4> 
                 <div className="space-y-3">
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Digital marketing course introduction</span>
+    <span>Beginner-friendly explanations — no coding needed</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Customer Life cycle</span>
+    <span> Interactive games, quizzes, and challenges</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>What is Search engine optimization(SEO)</span>
+    <span>Real-life examples from apps, entertainment, and smart devices</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Facebook ADS</span>
+    <span>Hands-on mini-projects (AI labeling, Teachable Machine)</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Facebook Messenger Chatbot</span>
+    <span>Creative activities (posters, reflection exercises, storytelling)</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Search engine optimization tools</span>
+    <span>Capstone project with gallery-style showcase</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Why SEO</span>
+    <span> Prepares you for Level 2 and Level 3 AI learning</span>
+  </div>
+<br></br>
+              <h4> 
+                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
+                  Assessments & Projects
+                </span>
+              </h4>
+  <div className="flex items-center gap-2 text-gray-700">
+    <i className="ri-check-line text-green-500"></i>
+    <span>Short quizzes and polls</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>URL Structure</span>
+    <span>Creative poster-making and brainstorming sessions</span>
   </div>
   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Featured Snippet</span>
+    <span>Interactive debates & challenges</span>
   </div>
-  <div className="flex items-center gap-2 text-gray-700">
+ <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>SEO tips and tricks</span>
+    <span>Mini hands-on project with Teachable Machine</span>
   </div>
-  <div className="flex items-center gap-2 text-gray-700">
+   <div className="flex items-center gap-2 text-gray-700">
     <i className="ri-check-line text-green-500"></i>
-    <span>Google tag manager</span>
+    <span>Final Capstone Showcase</span>
   </div>
 </div>
-
-              
-                
-              </div>
-          
-          </div>
+</div>
+         </div>
                         )}
           
                         {activeTab === 2 && (
@@ -414,33 +301,33 @@ export default function CourseDetailPage() {
               <div className="trezo-card-content">
                 <h4> 
                 <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                Instructor
+                Mr. Akshay Jain
                 </span>
                 </h4>
-                <p>
-                 Welcome to the Digital Marketing Ultimate Course Bundle
-                  - 12 Courses in 1 (Over 36 hours of content)
-                </p>
-                <p>In this practical hands-on training, you&apos;re going to learn to become a digital marketing expert with this ultimate course bundle that includes 12 digital marketing courses in 1!</p>
-                <p>If you wish to find out the skills that should be covered in a basic digital marketing course syllabus in India or anywhere around the world, then reading this blog will help. Before we delve into the advanced digital marketing course syllabus,
-                   let&apos;s look at the scope of digital marketing and what the future holds.</p>
-                <p>We focus a great deal on the understanding of behavioral psychology and influence triggers
-                   which are crucial for becoming a well rounded Digital Marketer. We understand that theory is important to build a solid foundation, we understand that theory alone isn&apos;t going to get the job done so that&apos;s why this course is
-                   packed with practical hands-on examples that you can follow step by step.</p>
                 
-                  <h4>
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  What you&apos;ll learn
-                </span>
-                </h4>
-              
+                {/* <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
+                <div className="trezo-card-title">
+                  <h5 className="!mb-0">{course.title}</h5>
+                </div>
+              </div> */}
+              <div className="trezo-card-content">
+                <div className="flex items-center">
+                  <img  key="video._id"
+                    src="/images/blue-man.jpg"
+                    alt="user-image"
+                    className="rounded-full w-[100px]"
+                    width={100}
+                    height={100}
+                  />
+                  <div className="ltr:ml-[15px] rtl:mr-[15px]">
+                    <span className="block text-black dark:text-white text-[17px] mb-[2px] font-medium">
+                      Academy of Administration & Management
+                    </span>
+                    <span className="block">Bhopal</span>
+                  </div>
+                </div>
+              </div>
 
-                <p className="mt-6 text-gray-500 leading-relaxed">
-                  As it so contrasted oh estimating instrument. Size like body someone had. Are conduct viewing boy minutes warrant the expense? 
-                  Tolerably behavior may admit daughters offending her ask own. Praise effect wishes change way and any wanted. 
-                  Lively use looked latter regard had. Do he it part more last in.
-                </p>
-                
               </div>
           
           </div>
@@ -450,7 +337,8 @@ export default function CourseDetailPage() {
                   </div>
                 </div>
         </div>
-        <div className="lg:col-span-3">
+         
+         <div className="lg:col-span-3">
           <div className="trezo-card bg-white dark:bg-[#0c1427]  md:p-[0px] rounded-md" >
               <div className="trezo-card-content">
                  <div className="relative mb-[2px]">
@@ -466,7 +354,7 @@ export default function CourseDetailPage() {
                                  </Link>
                 
                                 <div className="absolute bg-primary-500 top-0 text-white font-bold flex items-center justify-center ltr:right-0 rtl:left-0 text-md w-[60px] h-[60px] rounded-md z-[1]">
-                                  10th
+                                  L1
                                 </div>
                                 <div className="absolute top-0 ltr:right-0 rtl:left-0 w-[65px] h-[65px] bg-white dark:bg-[#0a0e19] ltr:rounded-bl-md rtl:rounded-br-md"></div>
                  </div>
@@ -525,7 +413,7 @@ export default function CourseDetailPage() {
                             </div>
               </div>
           </div>
-        <br></br>
+          <br></br>
           <div className="trezo-card bg-white dark:bg-[#0c1427] gap-[25px] md:p-[0px] rounded-md" >
               <div className="trezo-card-content">
                 <div className="trezo-card bg-white dark:bg-[#0c1427] p-6 rounded-lg shadow">
@@ -585,65 +473,67 @@ export default function CourseDetailPage() {
                             
               </div>
           </div>
-        </div>     
+          
+        </div>   
     </div>
       {/*end  */}
-    <div className="lg:grid lg:grid-cols-12 gap-[25px]">
+    <div className="lg:grid lg:grid-cols-12 gap-[25px]" >
         <div className="lg:col-span-7">
           <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
               <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                 <div className="trezo-card-title">
-                  <h5 className="!mb-0">{course.title}</h5>
+                  <h5 className="!mb-0">Course Duration & Mode</h5>
                 </div>
               </div>
               <div className="trezo-card-content">
-                <div className="flex items-center">
-                  <img  key="video._id"
-                    src="/images/events/event9.jpg"
-                    alt="user-image"
-                    className="rounded-full w-[100px]"
-                    width={100}
-                    height={100}
-                  />
-                  <div className="ltr:ml-[15px] rtl:mr-[15px]">
-                    <span className="block text-black dark:text-white text-[17px] mb-[2px] font-medium">
-                      {course.description}
-                    </span>
-                    <span className="block">{course.category}</span>
-                  </div>
+                
+                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
+                  Course Duration & Mode
+                </span>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <i className="ri-check-line text-green-500"></i>
+                    <span><strong>Duration:</strong> ~2 hours (self-paced or classroom supported)</span>
                 </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <i className="ri-check-line text-green-500"></i>
+                    <span><strong>Format:</strong> Interactive modules, videos, activities, and projects</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <i className="ri-check-line text-green-500"></i>
+                    <span><strong>Mode:</strong> Online / Hybrid / Classroom-friendly design</span>
+                </div>
+                
+               
+              </div>
+
+              <div className="trezo-card-content">
+                
                 <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  Course Description
+                  Why Take This Course?
                 </span>
-                <p>
-                  This course is designed for beginners who want to learn the
-                  fundamentals of the Python programming language. The course covers
-                  basic syntax, data types, control structures, and an introduction to
-                  object-oriented programming. Participants will have hands-on coding
-                  exercises to reinforce their learning.
-                </p>
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  Course Schedule
-                </span>
-                <p>
-                  Start Date: 01 August 2024
-                  <br />
-                  End Date: 30 December 2024
-                </p>
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  Status
-                </span>
-                <p>
-                  The course is currently in progress. Students are actively engaged
-                  in the learning materials, and the instructor is providing guidance
-                  and support.
-                </p>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <i className="ri-check-line text-green-500"></i>
+                    <span>Gain a <strong>clear, structured foundation</strong> in AI concepts.</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <i className="ri-check-line text-green-500"></i>
+                    <span>Learn through <strong>stories, games, and real-world examples.</strong></span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <i className="ri-check-line text-green-500"></i>
+                    <span>Build curiosity and readiness for <strong>advanced AI topics.</strong></span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <i className="ri-check-line text-green-500"></i>
+                    <span>Be part of the future by understanding how technology works today.</span>
+                </div>
+                
+               
               </div>
             </div>
         </div>        
-    
-
         <div className="lg:col-span-3">
+          
           <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
                   <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                     <div className="trezo-card-title">
@@ -656,10 +546,10 @@ export default function CourseDetailPage() {
                         <thead className="text-black dark:text-white">
                           <tr>
                             
-                            <th className="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                            <th className="font-medium ltr:text-left rtl:text-right px-[10px] py-[11px] md:ltr:first:pl-[15px] md:rtl:first:pr-[15px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
                               Topic Name
                             </th>
-                            <th className="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
+                            <th className="font-medium ltr:text-left rtl:text-right px-[10px] py-[11px] md:ltr:first:pl-[15px] md:rtl:first:pr-[15px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
                               Time Duration
                             </th>
                           </tr>
@@ -669,7 +559,7 @@ export default function CourseDetailPage() {
                         {course.videos && course.videos.length > 0 ? (
                             course.videos.map((video) => (  
                             <tr key="video._id">
-                              <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                              <td width="100px"  className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                 <div className="flex items-center">
                                   <img key="video._id"
                                     src="https://trezo-bs.envytheme.com/images/events/event7.jpg"
@@ -692,8 +582,6 @@ export default function CourseDetailPage() {
   ) : (
    
                             <tr>
-                             
-          
                               <td  className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                 <div className="flex items-center">
                                  
@@ -702,9 +590,7 @@ export default function CourseDetailPage() {
                                   </span>
                                 </div>
                               </td>
-          
-                              
-                            </tr>
+                           </tr>
                   
   )}           
                             
@@ -713,8 +599,8 @@ export default function CourseDetailPage() {
                       </table>
                     </div>
                   </div>
-                </div>
-        </div>
+          </div>
+        </div> 
     </div>
 
     <div className="lg:grid lg:grid-cols-12 gap-[25px]">
@@ -755,239 +641,7 @@ export default function CourseDetailPage() {
         </div>        
     </div>
 
-     <div className="lg:grid lg:grid-cols-12 gap-[25px]">
-        <div className="lg:col-span-7">
-          <div className="trezo-card bg-white dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
-                  <div className="trezo-card-content">
-                    <div className="trezo-tabs" id="trezo-tabs">
-                      <ul className="navs mb-[20px] border-b border-gray-100 dark:border-[#172036]">
-                        <li className="nav-item inline-block ltr:mr-[20px] rtl:ml-[20px]">
-                          <button
-                            type="button"
-                            onClick={() => handleTabClick(0)}
-                            className={`nav-link block pb-[8px] transition-all relative font-medium ${
-                              activeTab === 0 ? "active" : ""
-                            }`}
-                          >
-                            Overview
-                          </button>
-                        </li>
-          
-                        <li className="nav-item inline-block ltr:mr-[20px] rtl:ml-[20px]">
-                          <button
-                            type="button"
-                            onClick={() => handleTabClick(1)}
-                            className={`nav-link block pb-[8px] transition-all relative font-medium ${
-                              activeTab === 1 ? "active" : ""
-                            }`}
-                          >
-                            Curriculum
-                          </button>
-                        </li>
-          
-                        <li className="nav-item inline-block ltr:mr-[20px] rtl:ml-[20px]">
-                          <button
-                            type="button"
-                            onClick={() => handleTabClick(2)}
-                            className={`nav-link block pb-[8px] transition-all relative font-medium ${
-                              activeTab === 2 ? "active" : ""
-                            }`}
-                          >
-                            Instructor
-                          </button>
-                        </li>
-                      </ul>
-          
-                      <div>
-                        {activeTab === 0 && (
-                          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
-              
-              <div className="trezo-card-content">
-                <h4> 
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  Course Description
-                </span>
-                </h4>
-                <p>
-                 Welcome to the Digital Marketing Ultimate Course Bundle
-                  - 12 Courses in 1 (Over 36 hours of content)
-                </p>
-                <p>In this practical hands-on training, you&apos;re going to learn to become a digital marketing expert with this ultimate course bundle that includes 12 digital marketing courses in 1!</p>
-                <p>If you wish to find out the skills that should be covered in a basic digital marketing course syllabus in India or anywhere around the world, then reading this blog will help. Before we delve into the advanced digital marketing course syllabus,
-                   let&apos;s look at the scope of digital marketing and what the future holds.</p>
-                <p>We focus a great deal on the understanding of behavioral psychology and influence triggers
-                   which are crucial for becoming a well rounded Digital Marketer. We understand that theory is important to build a solid foundation, we understand that theory alone isn&apos;t going to get the job done so that&apos;s why this course is
-                   packed with practical hands-on examples that you can follow step by step.</p>
-                
-                  <h4>
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  What you&apos;ll learn
-                </span>
-                </h4>
-                <div className="space-y-3">
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Digital marketing course introduction</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Customer Life cycle</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>What is Search engine optimization(SEO)</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Facebook ADS</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Facebook Messenger Chatbot</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Search engine optimization tools</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Why SEO</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>URL Structure</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Featured Snippet</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>SEO tips and tricks</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Google tag manager</span>
-  </div>
-</div>
-
-                <p className="mt-6 text-gray-500 leading-relaxed">
-                  As it so contrasted oh estimating instrument. Size like body someone had. Are conduct viewing boy minutes warrant the expense? 
-                  Tolerably behavior may admit daughters offending her ask own. Praise effect wishes change way and any wanted. 
-                  Lively use looked latter regard had. Do he it part more last in.
-                </p>
-                
-              </div>
-          
-          </div>
-                        )}
-          
-                        {activeTab === 1 && (
-                          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
-              
-              <div className="trezo-card-content">
-                <h4> 
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  Curriculum
-                </span>
-                </h4> 
-                <div className="space-y-3">
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Digital marketing course introduction</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Customer Life cycle</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>What is Search engine optimization(SEO)</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Facebook ADS</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Facebook Messenger Chatbot</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Search engine optimization tools</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Why SEO</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>URL Structure</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Featured Snippet</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>SEO tips and tricks</span>
-  </div>
-  <div className="flex items-center gap-2 text-gray-700">
-    <i className="ri-check-line text-green-500"></i>
-    <span>Google tag manager</span>
-  </div>
-</div>
-
-              
-                
-              </div>
-          
-          </div>
-                        )}
-          
-                        {activeTab === 2 && (
-                          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
-              
-              <div className="trezo-card-content">
-                <h4> 
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                Instructor
-                </span>
-                </h4>
-                <p>
-                 Welcome to the Digital Marketing Ultimate Course Bundle
-                  - 12 Courses in 1 (Over 36 hours of content)
-                </p>
-                <p>In this practical hands-on training, you&apos;re going to learn to become a digital marketing expert with this ultimate course bundle that includes 12 digital marketing courses in 1!</p>
-                <p>If you wish to find out the skills that should be covered in a basic digital marketing course syllabus in India or anywhere around the world, then reading this blog will help. Before we delve into the advanced digital marketing course syllabus,
-                   let&apos;s look at the scope of digital marketing and what the future holds.</p>
-                <p>We focus a great deal on the understanding of behavioral psychology and influence triggers
-                   which are crucial for becoming a well rounded Digital Marketer. We understand that theory is important to build a solid foundation, we understand that theory alone isn&apos;t going to get the job done so that&apos;s why this course is
-                   packed with practical hands-on examples that you can follow step by step.</p>
-                
-                  <h4>
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  What you&apos;ll learn
-                </span>
-                </h4>
-              
-
-                <p className="mt-6 text-gray-500 leading-relaxed">
-                  As it so contrasted oh estimating instrument. Size like body someone had. Are conduct viewing boy minutes warrant the expense? 
-                  Tolerably behavior may admit daughters offending her ask own. Praise effect wishes change way and any wanted. 
-                  Lively use looked latter regard had. Do he it part more last in.
-                </p>
-                
-              </div>
-          
-          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-        </div>
-     </div>
+     
     </>
   );
 };

@@ -34,7 +34,7 @@ const Nav: React.FC = () => {
           </Link>
         </li>
 
-        <li className="inline-block mb-[15px] ltr:mr-[11px] rtl:ml-[11px] ltr:last:mr-0 rtl:last:ml-0">
+        {/* <li className="inline-block mb-[15px] ltr:mr-[11px] rtl:ml-[11px] ltr:last:mr-0 rtl:last:ml-0">
           <Link
             href="/settings/connections"
             className={`block rounded-md font-medium py-[8.5px] px-[15px] text-primary-500 border border-primary-500 transition-all  ${
@@ -71,7 +71,7 @@ const Nav: React.FC = () => {
           >
             Terms & Conditions
           </Link>
-        </li>
+        </li> */}
       </ul>
     </>
   );
