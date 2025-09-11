@@ -136,7 +136,7 @@ export default function CourseDetailPage() {
 
       <div className="lg:grid lg:grid-cols-12 gap-[25px]">
         <div className="lg:col-span-7">
-          <div className="trezo-card bg-white dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
+          <div className="trezo-card bg-white dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md shadow">
                   <div className="trezo-card-content">
                     <div className="trezo-tabs" id="trezo-tabs">
                       <ul className="navs mb-[20px] border-b border-gray-100 dark:border-[#172036]">
@@ -339,7 +339,7 @@ and hands-on activities, you’ll uncover what AI is, how it has evolved,
                   </div>
                 </div>
 <br></br>
-          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
+          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md shadow">
               <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                 <div className="trezo-card-title">
                   <h5 className="!mb-0">Course Duration & Mode</h5>
@@ -347,9 +347,7 @@ and hands-on activities, you’ll uncover what AI is, how it has evolved,
               </div>
               <div className="trezo-card-content">
                 
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  Course Duration & Mode
-                </span>
+              <div className="space-y-3">  
                 <div className="flex items-center gap-2 text-gray-700">
                   <i className="ri-check-line text-green-500"></i>
                     <span><strong>Duration:</strong> ~2 hours (self-paced or classroom supported)</span>
@@ -362,17 +360,19 @@ and hands-on activities, you’ll uncover what AI is, how it has evolved,
                   <i className="ri-check-line text-green-500"></i>
                     <span><strong>Mode:</strong> Online / Hybrid / Classroom-friendly design</span>
                 </div>
-                
+              </div>  
                
               </div>
-
+            <br></br>
               <div className="trezo-card-content">
-                
-                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
-                  Why Take This Course?
-                </span>
-                <div className="flex items-center gap-2 text-gray-700">
-                  <i className="ri-check-line text-green-500"></i>
+                <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
+                  <div className="trezo-card-title">
+                    <h5 className="!mb-0">Why Take This Course?</h5>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <i className="ri-check-line text-green-500"></i>
                     <span>Gain a <strong>clear, structured foundation</strong> in AI concepts.</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-700">
@@ -387,14 +387,46 @@ and hands-on activities, you’ll uncover what AI is, how it has evolved,
                   <i className="ri-check-line text-green-500"></i>
                     <span>Be part of the future by understanding how technology works today.</span>
                 </div>
-                
-               
+                </div>
+              </div> 
+<br></br>
+             <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
+                <div className="trezo-card-title">
+                  <h5 className="!mb-0">What you&apos;ll learn</h5>
+                </div>
               </div>
+              <div className="trezo-card-content">
+            
+                <p><span className="material-symbols-outlined">done</span>
+                  Get to know the main functions and common parts of every website.
+                </p>
+                <p><span className="material-symbols-outlined">done</span>
+                  Learn password hashing and de-hashing.
+                </p>
+                 <p><span className="material-symbols-outlined">done</span>
+                  Get to know the main functions and common parts of every website.
+                </p>
+                <p><span className="material-symbols-outlined">done</span>
+                  Learn password hashing and de-hashing.
+                </p>
+
+              </div>
+               <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md ">
+              <Link
+                   key={course._id}
+                   href={`/lms/course-details/view-videos/${course._id}`}
+                   className="inline-block py-[10px] px-[30px] bg-primary-500 text-white transition-all hover:bg-primary-400 rounded-md border border-primary-500 hover:border-primary-400 ltr:mr-[11px] rtl:ml-[11px] mb-[15px]"
+                   target="_blank"
+              >
+                 Start Course
+              </Link>
+              </div>
+
             </div>
         </div>
          
          <div className="lg:col-span-3">
-          <div className="trezo-card bg-white dark:bg-[#0c1427]  md:p-[0px] rounded-md" >
+          <div className="trezo-card bg-white dark:bg-[#0c1427]  md:p-[0px] rounded-md shadow" >
               <div className="trezo-card-content">
                  <div className="relative mb-[2px]">
                     <Link href={`/lms/course-details/${course._id}`} className="block rounded-md" target="_blank">
@@ -529,14 +561,15 @@ and hands-on activities, you’ll uncover what AI is, how it has evolved,
               </div>
           </div>
           <br></br>
-          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
+          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md shadow">
                   <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
                     <div className="trezo-card-title">
                       <h5 className="!mb-0">Course content</h5>
                     </div>
                   </div>
                   <div className="trezo-card-content -mx-[20px] md:-mx-[25px]">
-                     <table className="w-full">
+                    <div className="table-responsive overflow-x-auto">
+                      <table className="w-full">
                         <thead className="text-black dark:text-white">
                           <tr>
                             <th className="font-medium ltr:text-left rtl:text-right px-[10px] py-[11px] md:ltr:first:pl-[15px] md:rtl:first:pr-[15px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">
@@ -551,7 +584,7 @@ and hands-on activities, you’ll uncover what AI is, how it has evolved,
                         <tbody className="text-black dark:text-white">
                           {course.videos && course.videos.length > 0 ? (
                             course.videos.map((video) => (  
-                            <tr key="video._id">
+                            <tr key={ video._id } >
                               <td   className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                 <div className="flex items-center">
                                   {/* <Image
@@ -589,10 +622,13 @@ and hands-on activities, you’ll uncover what AI is, how it has evolved,
                           )}           
                         </tbody>
                       </table> 
+                    </div>  
                   </div>
+                            
+                  
           </div>
         </div>   
-    </div>
+      </div>
       {/*end  */}
     
     <div className="lg:grid lg:grid-cols-12 gap-[25px]">

@@ -351,7 +351,7 @@ export default function CourseDetailPage() {
                               activeTab === 1 ? "active" : ""
                             }`}
                           >
-                            Curriculum
+                            Q&A
                           </button>
                         </li>
           
@@ -363,7 +363,40 @@ export default function CourseDetailPage() {
                               activeTab === 2 ? "active" : ""
                             }`}
                           >
-                            Instructor
+                            Note
+                          </button>
+                        </li>
+                         <li className="nav-item inline-block ltr:mr-[20px] rtl:ml-[20px]">
+                          <button
+                            type="button"
+                            onClick={() => handleTabClick(2)}
+                            className={`nav-link block pb-[8px] transition-all relative font-medium ${
+                              activeTab === 3 ? "active" : ""
+                            }`}
+                          >
+                            Announcements
+                          </button>
+                        </li>
+                        <li className="nav-item inline-block ltr:mr-[20px] rtl:ml-[20px]">
+                          <button
+                            type="button"
+                            onClick={() => handleTabClick(2)}
+                            className={`nav-link block pb-[8px] transition-all relative font-medium ${
+                              activeTab === 4 ? "active" : ""
+                            }`}
+                          >
+                            Reviews
+                          </button>
+                        </li>
+                        <li className="nav-item inline-block ltr:mr-[20px] rtl:ml-[20px]">
+                          <button
+                            type="button"
+                            onClick={() => handleTabClick(2)}
+                            className={`nav-link block pb-[8px] transition-all relative font-medium ${
+                              activeTab === 5 ? "active" : ""
+                            }`}
+                          >
+                            Learning tools
                           </button>
                         </li>
                       </ul>
@@ -497,12 +530,99 @@ and hands-on activities, you’ll uncover what AI is, how it has evolved,
                 Mr. Akshay Jain
                 </span>
                 </h4>
-                
-                {/* <div className="trezo-card-header mb-[20px] md:mb-[25px] flex items-center justify-between">
-                <div className="trezo-card-title">
-                  <h5 className="!mb-0">{course.title}</h5>
+              <div className="trezo-card-content">
+                <div className="flex items-center">
+                  <Image  key="video._id"
+                    src="/images/blue-man.jpg"
+                    alt="user-image"
+                    className="rounded-full w-[100px]"
+                    width={100}
+                    height={100}
+                  />
+                  <div className="ltr:ml-[15px] rtl:mr-[15px]">
+                    <span className="block text-black dark:text-white text-[17px] mb-[2px] font-medium">
+                      Academy of Administration & Management
+                    </span>
+                    <span className="block">Bhopal</span>
+                  </div>
                 </div>
-              </div> */}
+              </div>
+
+              </div>
+          
+          </div>
+                        )}
+                        {activeTab === 3 && (
+                          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
+              
+              <div className="trezo-card-content">
+                <h4> 
+                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
+                Mr. Akshay Jain
+                </span>
+                </h4>
+              <div className="trezo-card-content">
+                <div className="flex items-center">
+                  <Image  key="video._id"
+                    src="/images/blue-man.jpg"
+                    alt="user-image"
+                    className="rounded-full w-[100px]"
+                    width={100}
+                    height={100}
+                  />
+                  <div className="ltr:ml-[15px] rtl:mr-[15px]">
+                    <span className="block text-black dark:text-white text-[17px] mb-[2px] font-medium">
+                      Academy of Administration & Management
+                    </span>
+                    <span className="block">Bhopal</span>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+          
+          </div>
+                        )}
+                        {activeTab === 4 && (
+                          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
+              
+              <div className="trezo-card-content">
+                <h4> 
+                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
+                Mr. Akshay Jain
+                </span>
+                </h4>
+              <div className="trezo-card-content">
+                <div className="flex items-center">
+                  <Image  key="video._id"
+                    src="/images/blue-man.jpg"
+                    alt="user-image"
+                    className="rounded-full w-[100px]"
+                    width={100}
+                    height={100}
+                  />
+                  <div className="ltr:ml-[15px] rtl:mr-[15px]">
+                    <span className="block text-black dark:text-white text-[17px] mb-[2px] font-medium">
+                      Academy of Administration & Management
+                    </span>
+                    <span className="block">Bhopal</span>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+          
+          </div>
+                        )}
+                        {activeTab === 5 && (
+                          <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
+              
+              <div className="trezo-card-content">
+                <h4> 
+                <span className="text-black dark:text-white font-medium block mb-[7px] mt-[22px]">
+                Mr. Akshay Jain
+                </span>
+                </h4>
               <div className="trezo-card-content">
                 <div className="flex items-center">
                   <Image  key="video._id"
