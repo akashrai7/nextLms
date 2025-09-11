@@ -253,7 +253,7 @@ export default function CourseDetailPage() {
           <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[15px] p-[15px] md:p-[25px] ">
             {currentVideo ? (
            <>
-             <p className="text-xl  font-bold mb-5">{course.title}</p>
+             {/* <p className="text-xl  font-bold mb-5">{course.title}</p> */}
              {/* <p className="text-sm text-white mb-4">{course.description}</p> */}
 
              <video
@@ -296,7 +296,7 @@ export default function CourseDetailPage() {
                           {course.videos && course.videos.length > 0 ? (
                             course.videos.map((video) => ( 
                                 //  {formatDuration(video.durationSec)}
-                              <li className="list-group-item ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
+                              <li key={video._id}  className="list-group-item ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                                 <input type="checkbox" value="" id="thirdCheckbox" className="form-check-input me-2"/>
                                 <label htmlFor="thirdCheckbox" className="form-check-label"> {video.title} </label>
                               </li>
