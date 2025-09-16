@@ -37,17 +37,18 @@ export async function PUT(req: Request) {
 
     // ✅ Track changes
     const updates: any[] = [];
-    for (const key of Object.keys(body)) {
-      if (user[key] !== body[key]) {
-        updates.push({
-          field: key,
-          oldValue: user[key],
-          newValue: body[key],
-          updatedAt: new Date()
-        });
-        user[key] = body[key]; // नया value assign
-      }
-    }
+for (const key of Object.keys(body)) {
+  const userDoc = user as any; // 👈 cast to any for dynamic indexing
+  if (userDoc[key] !== body[key]) {
+    updates.push({
+      field: key,
+      oldValue: userDoc[key],
+      newValue: body[key],
+      updatedAt: new Date(),
+    });
+    userDoc[key] = body[key]; // नया value assign
+  }
+}
 
     // ✅ Profile Image Handling (अगर नया image है)
     if (body.photo) {

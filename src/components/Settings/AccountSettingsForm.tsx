@@ -1,26 +1,129 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Image from "next/image"; 
 
-const AccountSettingsForm: React.FC = () => {
-  // Upload image
-  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+export default function ProfilePage() {
+  const [form, setForm] = useState<any>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobile: "",
+    dob: "",
+    address: "",
+    city: "",
+    pinCode: "",
+    gender: "",
+    nationality: "",
+    bloodGroup: "",
+    category: "",
+    state: "",
+    district: "",
+    photo: null,
+  });
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const filesArray = Array.from(event.target.files);
-      setSelectedImages((prevImages) => [...prevImages, ...filesArray]);
+  const [states, setStates] = useState<any[]>([]);
+  const [districts, setDistricts] = useState<any[]>([]);
+  const [settings, setSettings] = useState<any>({});
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [message, setMessage] = useState<{ type: string; text: string } | null>(
+    null
+  );
+
+  // ✅ Load current user profile
+  useEffect(() => {
+    axios.get("/api/auth/me").then((res) => {
+      if (res.data.ok) {
+        setForm((prev: any) => ({
+          ...prev,
+          ...res.data.data,
+        }));
+      }
+    });
+  }, []);
+
+  // ✅ Fetch settings (gender, category, bloodGroup, nationality, states)
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const [g, c, b, n, s] = await Promise.all([
+          axios.get("/api/settings/gender"),
+          axios.get("/api/settings/category"),
+          axios.get("/api/settings/blood_group"),
+          axios.get("/api/settings/nationality"),
+          axios.get("/api/settings/state"),
+        ]);
+        setSettings({
+          genders: g.data.data,
+          categories: c.data.data,
+          bloodGroups: b.data.data,
+          nationalities: n.data.data,
+          state: s.data.data,
+        });
+        setStates(s.data.data);
+      } catch (err) {
+        console.error("Failed to load settings", err);
+      }
+    };
+    fetchSettings();
+  }, []);
+
+  // ✅ Fetch districts on state change
+  useEffect(() => {
+    if (form.state) {
+      axios
+        .get(`/api/settings/district?stateId=${form.state}`)
+        .then((res) => setDistricts(res.data.data))
+        .catch(() => setDistricts([]));
+    }
+  }, [form.state]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setForm({ ...form, photo: reader.result });
+      };
+      reader.readAsDataURL(file);
+      setSelectedImages([file]);
     }
   };
 
-  const handleRemoveImage = (index: number) => {
-    setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index));
+const handleRemoveImage = (index: number) => {
+    setSelectedImages((prev) => prev.filter((_, i) => i !== index));
+    setForm({ ...form, photo: null });
   };
+
+  // ✅ Submit
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage(null);
+    try {
+      const res = await axios.put("/api/user/profile/update", form);
+      if (res.data.ok) {
+        setMessage({ type: "success", text: "Profile updated successfully!" });
+      }
+    } catch (err: any) {
+      setMessage({
+        type: "error",
+        text: err.response?.data?.message || "Update failed",
+      });
+    }
+  };
+
+
 
   return (
     <>
-      <form>
+      <form onSubmit={ handleSubmit }>
         <h5 className="!text-lg !mb-[6px]">Profile</h5>
         <p className="mb-[20px] md:mb-[25px]">
           Update your photo and personal details here.
@@ -28,160 +131,260 @@ const AccountSettingsForm: React.FC = () => {
 
         <div className="sm:grid sm:grid-cols-2 sm:gap-[25px]">
           <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              First Name
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="Olivia"
-            />
+            <div className="relative w-full">
+              <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                First Name
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                value={form.firstName}
+                disabled
+                placeholder="Insert first name"
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+              />
+            </div>
+          </div>
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+              <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                Last Name
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                value={form.lastName}
+                disabled
+                placeholder="Insert last name"
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+              />
+            </div>
+          </div>
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+              <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                disabled
+                placeholder="Insert email address"
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              />
+            </div>
+          </div>
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+              <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                Mobile Number
+              </label>
+              <input
+                type="tel"
+                name="mobile"
+                value={form.mobile || ""}
+                onChange={handleChange}
+                placeholder="Insert mobile number"
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              />
+            </div>
+          </div>
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+              <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                Date Of Birth
+              </label>
+              <input
+                type="date"
+                name="dob"
+                value={form.dob || ""}
+                onChange={handleChange}
+                placeholder="YYYY-MM-DD"
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              />
+            </div>
+          </div>
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+              <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                Address
+              </label>
+              <input
+                type="text"
+                name="address"
+                onChange={handleChange}
+                placeholder="Insert address"
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              />
+            </div>
           </div>
 
           <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Last Name
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="John"
-            />
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Email Address
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="olivia@trezo.com"
-            />
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Phone Number
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="+1 444 555 6699"
-            />
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Address
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="84 S. Arrowhead Court Branford"
-            />
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
+            <div className="relative w-full">
+            <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
               Country
             </label>
-            <select className="h-[55px] rounded-md border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[13px] block w-full outline-0 cursor-pointer transition-all focus:border-primary-500 text-black dark:text-white">
-              <option value="0">Select</option>
-              <option value="1">Switzerland</option>
-              <option value="2">New Zealand</option>
-              <option value="3">Germany</option>
-              <option value="4">United States</option>
-              <option value="5">Japan</option>
-              <option value="6">Netherlands</option>
-              <option value="7">Sweden</option>
-              <option value="8">Canada</option>
-              <option value="9">United Kingdom</option>
-              <option value="10">Australia</option>
-            </select>
+            <select
+                name="country"
+                value="India"
+                disabled
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              >
+                <option value="India">India</option>
+              </select>
+            </div>
           </div>
 
           <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Date Of Birth
+            <div className="relative w-full">
+            <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+              State
+            </label>
+            <select
+                name="state"
+                value={form.state || ""}
+                onChange={handleChange}
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              >
+                <option value="">Select</option>
+                {states.map((s) => (
+                  <option key={s._id} value={s._id}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+            <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+              District
+            </label>
+            <select
+                name="district"
+                value={form.district || ""}
+                onChange={handleChange}
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              >
+                <option value="">Select</option>
+                {districts.map((d) => (
+                  <option key={d._id} value={d._id}>
+                    {d.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+            <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+              City
             </label>
             <input
-              type="date"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="1987-01-08"
-            />
+                type="text"
+                name="city"
+                value={form.city || ""}
+                onChange={handleChange}
+                placeholder="Enter city"
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              />
+            </div>
           </div>
 
           <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
+            <div className="relative w-full">
+            <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+              Pin Code
+            </label>
+             <input
+                type="text"
+                name="pinCode"
+                value={form.pinCode || ""}
+                onChange={handleChange}
+                placeholder="Enter pin code"
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              />
+            </div>
+          </div>
+          
+
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+            <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
               Gender
             </label>
-            <select className="h-[55px] rounded-md border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[13px] block w-full outline-0 cursor-pointer transition-all focus:border-primary-500 text-black dark:text-white">
-              <option value="0">Select</option>
-              <option value="1">Male</option>
-              <option value="2">Female</option>
-              <option value="3">Custom</option>
-            </select>
+            <select
+                name="gender"
+                value={form.gender || ""}
+                onChange={handleChange}
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              >
+                <option value="">Select</option>
+                {settings.genders?.map((g: any) => (
+                  <option key={g._id} value={g.name}>
+                    {g.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+            <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+              Nationality
+            </label>
+            <select
+                name="nationality"
+                value={form.nationality || ""}
+                onChange={handleChange}
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              >
+                <option value="">Select</option>
+                {settings.nationalities?.map((n: any) => (
+                  <option key={n._id} value={n.name}>
+                    {n.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="mb-[20px] sm:mb-0">
+            <div className="relative w-full">
+            <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+              Blood Group
+            </label>
+            <select
+                name="bloodGroup"
+                value={form.bloodGroup || ""}
+                onChange={handleChange}
+                className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none placeholder-gray-400 focus:border-primary-500"
+              >
+                <option value="">Select</option>
+                {settings.bloodGroups?.map((b: any) => (
+                  <option key={b._id} value={b.name}>
+                    {b.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Your Skills
-            </label>
-            <select className="h-[55px] rounded-md border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[13px] block w-full outline-0 cursor-pointer transition-all focus:border-primary-500 text-black dark:text-white">
-              <option value="0">Select</option>
-              <option value="1">Leadership</option>
-              <option value="2">Project Management</option>
-              <option value="3">Data Analysis</option>
-              <option value="4">Teamwork</option>
-              <option value="5">Web Development</option>
-            </select>
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Your Profession
-            </label>
-            <select className="h-[55px] rounded-md border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[13px] block w-full outline-0 cursor-pointer transition-all focus:border-primary-500 text-black dark:text-white">
-              <option value="0">Select</option>
-              <option value="1">Financial Manager</option>
-              <option value="2">IT Manager</option>
-              <option value="3">Software Developer</option>
-              <option value="4">Physician Assistant</option>
-              <option value="5">Data Scientist</option>
-            </select>
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Company Name
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="Trezo Admin"
-            />
-          </div>
-
-          <div className="mb-[20px] sm:mb-0">
-            <label className="mb-[10px] text-black dark:text-white font-medium block">
-              Company Website
-            </label>
-            <input
-              type="text"
-              className="h-[55px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] px-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              defaultValue="http://website.com/"
-            />
-          </div>
+         
 
           <div className="sm:col-span-2 mb-[20px] sm:mb-0">
             <label className="mb-[10px] text-black dark:text-white font-medium block">
               Add Your Bio
             </label>
-            <textarea
-              className="h-[140px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] p-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
-              placeholder="It makes me feel..."
-            ></textarea>
+           <textarea
+            name="bio"
+            value={form.bio || ""}
+            onChange={handleChange}
+            className="h-[140px] rounded-md text-black dark:text-white border border-gray-200 dark:border-[#172036] bg-white dark:bg-[#0c1427] p-[17px] block w-full outline-0 transition-all placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:border-primary-500"
+            placeholder="It makes me feel..."
+          ></textarea>
           </div>
         </div>
 
@@ -203,13 +406,7 @@ const AccountSettingsForm: React.FC = () => {
                 <br /> you file here
               </p>
             </div>
-            <input
-              type="file"
-              id="fileInput"
-              accept="image/*"
-              className="absolute top-0 left-0 right-0 bottom-0 rounded-md z-[1] opacity-0 cursor-pointer"
-              onChange={handleFileChange}
-            />
+           
           </div>
 
           {/* Image Previews */}
@@ -246,7 +443,7 @@ const AccountSettingsForm: React.FC = () => {
           </button>
 
           <button
-            type="button"
+             type="submit"
             className="font-medium inline-block transition-all rounded-md md:text-md py-[10px] md:py-[12px] px-[20px] md:px-[22px] bg-primary-500 text-white hover:bg-primary-400"
           >
             <span className="inline-block relative ltr:pl-[29px] rtl:pr-[29px]">
@@ -262,4 +459,3 @@ const AccountSettingsForm: React.FC = () => {
   );
 };
 
-export default AccountSettingsForm;

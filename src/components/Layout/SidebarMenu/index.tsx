@@ -213,6 +213,16 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ toggleActive }) => {
               >
                 <div className="pt-[4px]">
                   <ul className="sidebar-sub-menu">
+                    <li className="sidemenu-item mb-[4px] last:mb-0">
+                      <Link
+                        href="/lms/course_add/"
+                        className={`sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c] ${
+                          pathname === "/lms/course_add/" ? "active" : ""
+                        }`}
+                      >
+                        Add Course
+                      </Link>
+                    </li>
                      <li className="sidemenu-item mb-[4px] last:mb-0">
                       <Link
                         href="/lms/institute/"
@@ -334,7 +344,27 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ toggleActive }) => {
                         Category
                       </Link>
                     </li>
-                    {/* <li className="sidemenu-item mb-[4px] last:mb-0">
+                    <li className="sidemenu-item mb-[4px] last:mb-0">
+                      <Link
+                        href="/lms/course_level/"
+                        className={`sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c] ${
+                          pathname === "/lms/course_level/" ? "active" : ""
+                        }`}
+                      >
+                        Course Level
+                      </Link>
+                    </li>
+                    <li className="sidemenu-item mb-[4px] last:mb-0">
+                      <Link
+                        href="/lms/video_source/"
+                        className={`sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c] ${
+                          pathname === "/lms/video_source/" ? "active" : ""
+                        }`}
+                      >
+                        Video Source
+                      </Link>
+                    </li>
+                     <li className="sidemenu-item mb-[4px] last:mb-0">
                       <Link
                         href="/lms/courses-list/"
                         className={`sidemenu-link rounded-md flex items-center relative transition-all font-medium text-gray-500 dark:text-gray-400 py-[9px] ltr:pl-[38px] ltr:pr-[30px] rtl:pr-[38px] rtl:pl-[30px] hover:text-primary-500 hover:bg-primary-50 w-full text-left dark:hover:bg-[#15203c] ${
@@ -353,7 +383,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ toggleActive }) => {
                       >
                         Videos List
                       </Link>
-                    </li> */}
+                    </li> 
 {/*                    
                    
                    
