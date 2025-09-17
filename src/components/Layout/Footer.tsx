@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
 
       <footer className="bg-white dark:bg-[#0c1427] rounded-t-md px-[20px] md:px-[25px] py-[15px] md:py-[20px] text-center">
         <p>
-          © <span className="text-purple-500">© Copyright 2025.</span> All Rights Reserved By {" "}
+          © <span className="text-purple-500"> Copyright 2025.</span> All Rights Reserved By {" "}
           <a
             href="#"
             target="_blank"

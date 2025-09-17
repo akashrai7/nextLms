@@ -28,11 +28,24 @@
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/db";
 import Course from "@/models/Course";
+import "@/models/Course_level";
 import fs from "fs";
 import formidable from "formidable";
 import { IncomingForm } from "formidable";
 import { IncomingMessage } from "http";
 import { Readable } from "stream";
+
+// GET all courses
+export async function GET() {
+  await dbConnect();
+  const courses = await Course.find()
+    .populate("courseLevel", "name")
+    .sort({ createdAt: -1 });
+
+  return NextResponse.json({ success: true, data: courses });
+}
+
+// POST new course
 
 // Disable Next.js body parsing (important for formidable)
 export const config = {

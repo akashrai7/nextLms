@@ -1,27 +1,3 @@
-// import mongoose, { Schema, Document } from "mongoose";
-
-// export interface ICourse extends Document {
-//   title: string;
-//   description: string;
-//   category: string;
-//   createdBy: string;
-//   createdAt: Date;
-//   updatedAt: Date;
-// }
-
-// const CourseSchema = new Schema<ICourse>(
-//   {
-//     title: { type: String, required: true },
-//     description: { type: String, required: true },
-//     category: { type: String, required: true },
-//     createdBy: { type: String, required: true },
-//   },
-//   { timestamps: true }
-// );
-
-// export default mongoose.models.Course ||
-//   mongoose.model<ICourse>("Course", CourseSchema);
-
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface ICourse extends Document {
@@ -38,7 +14,7 @@ export interface ICourse extends Document {
   summary: string;
   description: string;
   certificate: "YES" | "NO";
-  createBy: mongoose.Types.ObjectId;
+  createdAt: mongoose.Types.ObjectId;
 }
 
 const CourseSchema: Schema = new Schema(
@@ -100,6 +76,11 @@ const CourseSchema: Schema = new Schema(
       type: String,
       enum: ["YES", "NO"],
       required: [true, "Certificate selection is required"],
+    },
+    createdAt: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "CreatedBy is required"],
     },
     
   },

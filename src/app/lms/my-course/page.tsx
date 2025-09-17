@@ -3,38 +3,65 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import Image from "next/image";
 
 interface Course {
   _id: string;
   title: string;
   description: string;
   category: string;
-  thumbnailUrl?: string;
+  thumbnail?: string;
+  courseLevel?: string;
+  summary?: string;
+  certificate?: string;
 }
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [coursesLoading, setCoursesLoading] = useState(true);
 
-  // Fetch courses
-  const fetchCourses = async () => {
-    try {
-      const res = await axios.get("/api/courses");
-      if (res.data.success) {
-        setCourses(res.data.data);
-      }
-    } catch (error) {
-      console.error("❌ Failed to fetch courses", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [user, setUser] = useState<any>(null);
+  const [userLoading, setUserLoading] = useState(true);
 
+  // ✅ Fetch courses
   useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await axios.get("/api/courses");
+        if (res.data.success) {
+          setCourses(res.data.data);
+        }
+      } catch (error) {
+        console.error("❌ Failed to fetch courses", error);
+      } finally {
+        setCoursesLoading(false);
+      }
+    };
     fetchCourses();
   }, []);
 
-  if (loading) return <p className="text-center py-10">Loading courses...</p>;
+  // ✅ Fetch login user
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get("/api/auth/me");
+        if (res.data.ok) {
+          setUser(res.data.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch user", err);
+      } finally {
+        setUserLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+
+  // ✅ Loader jab tak user ya courses dono ready na ho
+  if (coursesLoading || userLoading) {
+    return <p className="text-center py-10">Loading...</p>;
+  }
 
   return (
 
@@ -78,9 +105,11 @@ export default function CoursesPage() {
                   <div className="trezo-card-content">
                     <div className="relative mb-[2px]">
                       <Link href={`/lms/course-details/${course._id}`} className="block rounded-md" >
-                        {/* src={course.thumbnailUrl} */}
-                        <img key={course._id}
-                          src="https://trezo-bs.envytheme.com/images/events/event9.jpg"
+                        {/* src={course.thumbnailUrl} 
+                        src="https://trezo-bs.envytheme.com/images/events/event9.jpg"
+                        */}
+                        <Image key={course._id}
+                          src={course.thumbnail || "https://trezo-bs.envytheme.com/images/events/event9.jpg"}
                           alt="event-image"
                           className="rounded-md "
                           width={700}
@@ -89,7 +118,9 @@ export default function CoursesPage() {
                        </Link>
       
                       <div className="absolute bg-primary-500 top-0 text-white font-bold flex items-center justify-center ltr:right-0 rtl:left-0 text-md w-[60px] h-[60px] rounded-md z-[1]">
-                        L1
+                        {typeof course.courseLevel === "object"
+                          ? (course.courseLevel as any).name
+                        : course.courseLevel}
                       </div>
                       <div className="absolute top-0 ltr:right-0 rtl:left-0 w-[65px] h-[65px] bg-white dark:bg-[#0a0e19] ltr:rounded-bl-md rtl:rounded-br-md"></div>
                     </div>
@@ -106,18 +137,18 @@ export default function CoursesPage() {
                       </Link>
                     </h6>
                     {/* {course.category} */}
-                    <p>Course Description Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <p>{course.summary} </p>
       
                     <div className="flex items-center">
                       
-                        <img
+                        <Image
                           src="https://trezo-bs.envytheme.com/images/users/user26.jpg"
                           alt="user-image"
                           className="rounded-full w-[40px] h-[40px] ltr:-mr-[12px] rtl:-ml-[12px] ltr:last:mr-0 rtl:last:ml-0 border-[2px] border-gray-100 dark:border-[#172036]"
                           width={40}
                           height={40}
                         />
-                         <img
+                         <Image
                           src="https://trezo-bs.envytheme.com/images/users/user27.jpg"
                           alt="user-image"
                           className="rounded-full w-[40px] h-[40px] ltr:-mr-[12px] rtl:-ml-[12px] ltr:last:mr-0 rtl:last:ml-0 border-[2px] border-gray-100 dark:border-[#172036]"
@@ -125,8 +156,8 @@ export default function CoursesPage() {
                           height={40}
                         />
                      
-                    </div>
-      
+                    </div> 
+      {user?.role === "student" && (
                     <div className="mt-[20px]">
                       <div className="flex items-center justify-between mb-[8px]">
                         <span className="block">Complete</span>
@@ -145,6 +176,22 @@ export default function CoursesPage() {
                         ></div>
                       </div>
                     </div>
+      )}
+      {user?.role === "teacher" && (
+                    <div className="mt-[20px]">
+                      <h6 className="!text-lg !mb-[10px]">
+                       {/* href={`/lms/my-course/${course._id}`} */}
+                      <Link
+                       key={course._id}
+                       href={`/lms/videos/${course._id}`}
+                       
+                        className="text-black dark:text-white transition-all hover:text-primary-500"
+                      >
+                        Edit
+                      </Link>
+                    </h6>
+                    </div>
+      )}
                   </div>
                   </div>
                 </div>

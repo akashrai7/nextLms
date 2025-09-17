@@ -33,19 +33,6 @@ export default function CourseAddForm() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // // ✅ Checkbox
-  // const handleCheckboxChange = (value: string) => {
-  //   setForm((prev) => {
-  //     const exists = prev.courseType.includes(value);
-  //     return {
-  //       ...prev,
-  //       courseType: exists
-  //         ? prev.courseType.filter((v) => v !== value)
-  //         : [...prev.courseType, value],
-  //     };
-  //   });
-  // };
-
 // RadioChange
 const handleRadioChange = (value: string) => {
   setForm((prev) => ({
@@ -144,7 +131,7 @@ const handleRadioChange = (value: string) => {
 
   return (
    <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
-        <div className="trezo-card-header mb-[20px] md:mb-[25px] sm:flex items-center justify-between">
+        <div className="trezo-card-header mb-[20px] md:mb-[25px] items-center justify-between">
         
     <div className="trezo-card-title">
       <h4 className="text-2xl font-bold mb-6">Add New Course</h4>
@@ -565,7 +552,7 @@ const handleRadioChange = (value: string) => {
           placeholder="Course Description"
           value={form.description}
           onChange={handleChange}
-          className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+          className="h-[100px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           required
         />
         </div> 
