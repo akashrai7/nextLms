@@ -113,7 +113,7 @@ const ChapterSettings: React.FC = () => {
         </ol>
       </div>
 
-      <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
+      <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] shadow rounded-2xl">
         <div className="trezo-card-content">
           <Nav /> 
 {/* start Nav */}
@@ -168,39 +168,52 @@ const ChapterSettings: React.FC = () => {
         </li>
       </ul> */}
 {/* end Nav */}
-           <div className="max-w-4xl mx-auto">
+          
      
           {/* Form */}
-          <div className="">
-             <div className="fixed inset-0 bg-black/30" />
-             <div className="fixed inset-0 flex items-center justify-center">
-               <div className="">
-                 <h3 className="text-lg font-medium mb-4">
-                   {editId ? "Edit Chapter" : "Add Chapter"}
-                 </h3>
-                 <form onSubmit={handleSubmit}>
-                   <input
-                     type="text"
-                     value={form.name}
-                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                     placeholder="Enter Chapter"
-                     className="border px-3 py-2 w-full rounded-md mb-4"
-                     required
-                   />
-                   <div className="flex justify-end">
-                     <button
+              
+                
+                 
+                 
+                  <div className="lg:grid lg:grid-cols-12  sm:gap-[15px]">
+                    <div className="lg:col-span-4 font-bold">
+                      <h5 className="text-lg font-medium mb-4">
+                        {editId ? "Edit Chapter" : "Add Chapter"}
+                      </h5>
+                    </div>
+                    <div className="lg:col-span-8 font-bold">
+                      <h5 className="text-lg font-medium mb-4">
+                        View Chapters
+                      </h5>
+                    </div>
+                    <div className="lg:col-span-4">
+                    <form onSubmit={handleSubmit}>
+                      <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                          Course Title
+                        </label>
+                        <input
+                          type="text"
+                          value={form.name}
+                          onChange={(e) => setForm({ ...form, name: e.target.value })}
+                          placeholder="Enter Chapter"
+                          className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                          required
+                        />
+                      </div> 
+                    <div className="flex justify-end py-[20px]">
+                      <button
                        type="submit"
-                       className="px-4 py-2 bg-primary-500 text-white rounded-md"
-                     >
+                       className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                      >
                        {editId ? "Update" : "Add"}
                      </button>
                    </div>
-                 </form>
-               </div>
-             </div>
-          </div>
-     
-          {/* Table */}
+                    </form>
+                    </div>
+                  
+                  <div className="lg:col-span-8">
+                    {/* Table */}
           <div className="table-responsive overflow-x-auto">
           <table className="w-full">
             <thead className="text-black dark:text-white">
@@ -258,6 +271,14 @@ const ChapterSettings: React.FC = () => {
             </tbody>
           </table>
           </div>
+                  </div> 
+                   </div>
+                 
+           
+             
+          
+     
+          
 
           {/* Pagination */}
           <div className="flex justify-between items-center mt-3">
@@ -290,7 +311,7 @@ const ChapterSettings: React.FC = () => {
             </button>
           </div>
           </div>
-    </div>
+   
         </div>
       </div>
     </>
