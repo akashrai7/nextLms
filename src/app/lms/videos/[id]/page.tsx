@@ -32,7 +32,7 @@ export default function Page() {
         <div className="trezo-card-content">
           <Nav />
 
-          <AccountSettingsForm />
+          {/* <AccountSettingsForm /> */}
         </div>
       </div>
     </>
