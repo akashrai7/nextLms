@@ -1,12 +1,79 @@
+// "use client";
+
+// import Image from "next/image";
+// import React, { useState, useRef } from "react";
+// import Link from "next/link";
+// import { useRouter } from "next/navigation"; // ✅ Import router
+
+// export default function LoginPage() {
+//   const router = useRouter(); // ✅ initialize router
+//   const [form, setForm] = useState({ identifier: "", password: "" });
+//   const [loading, setLoading] = useState(false);
+//   const [message, setMessage] = useState<{ type: string; text: string } | null>(null);
+
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setForm({ ...form, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     setMessage(null);
+
+//     try {
+   
+//       const res = await fetch("/api/auth/login", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           ...form,
+//           provider: "google",
+//         }),
+//       });
+
+//       const data = await res.json();
+//       // if (!res.ok) throw new Error(data.message || "Login failed..");
+
+//   if (res.ok) {
+//     const token = data.token || data.data?.token; // server jis key se bhej raha ho
+//     if (token) {
+//       console.log("Saved token:", data.token);
+//       console.log("Saved token 1:", token);
+//       localStorage.setItem("token", token);  // 🔹 yaha save kar diya
+//     }
+//     // success message, redirect, etc...
+//   } else {
+//     setMessage({ type: "error", text: data.message || "Login failed" });
+//   }
+
+
+
+
+//       setMessage({ type: "success", text: data.message });
+//       // ✅ Success पर redirect
+    
+//         if (data.data.role === "admin") {
+//           router.push("/dashboard");  // /admin/dashboard
+//         } else if (data.data.role === "teacher") {
+//           router.push("/dashboard");
+//         } else {
+//           router.push("/dashboard");
+//         }
+//     } catch (err: any) {
+//       setMessage({ type: "error", text: err.message });
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
 "use client";
 
 import Image from "next/image";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; // ✅ Import router
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const router = useRouter(); // ✅ initialize router
+  const router = useRouter();
   const [form, setForm] = useState({ identifier: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: string; text: string } | null>(null);
@@ -21,36 +88,44 @@ export default function LoginPage() {
     setMessage(null);
 
     try {
-   
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          provider: "google",
-        }),
+        body: JSON.stringify(form), // ✅ provider extra bhejne ki zarurat nahi
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Login failed..");
 
-      setMessage({ type: "success", text: data.message });
-      // ✅ Success पर redirect
-    
-        if (data.data.role === "admin") {
-          router.push("/dashboard");  // /admin/dashboard
-        } else if (data.data.role === "teacher") {
-          router.push("/dashboard");
-        } else {
-          router.push("/dashboard");
-        }
+      if (!res.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      // ✅ Token safe karo
+      const token = data.token || data.data?.token;
+      if (!token) {
+        throw new Error("No token received from server");
+      }
+
+      localStorage.setItem("token", token);
+      console.log("✅ Token saved:", token);
+
+      setMessage({ type: "success", text: data.message || "Login successful" });
+
+      // ✅ Redirect by role
+      const role = data.user?.role || data.data?.role;
+      if (role === "admin") {
+        router.push("/dashboard");
+      } else if (role === "teacher") {
+        router.push("/dashboard");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err: any) {
       setMessage({ type: "error", text: err.message });
     } finally {
       setLoading(false);
     }
   };
-
 
   return (
     <>

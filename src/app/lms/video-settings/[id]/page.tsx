@@ -1,8 +1,13 @@
 "use client";
 
+// import Nav from "@/components/LMS/video/Nav";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
+import { usePathname } from "next/navigation";
+
+
 
 type Settings = {
   languages?: any[];
@@ -28,7 +33,12 @@ type CourseData = {
   createdBy?: string;
 };
 
-export default function CourseEditForm({ courseId }: { courseId: string }) {
+export default function CourseEditForm() {
+  const pathname = usePathname();
+  // const courseId = pathname.split("/").pop();
+  const segments = pathname.split("/").filter(Boolean); // empty string hata do
+  const courseId = segments[segments.length - 1]; // last part hamesha ID hoga
+
   const [form, setForm] = useState<CourseData>({
     courseType: [],
     language: "",
@@ -124,7 +134,7 @@ if (target === "certificate") {
           videoSources: v.data.data,
         });
 
-        const cd = courseRes.data.data || courseRes.data; // adapt to your API shape
+        const cd = courseRes.data.data || courseRes.data.course; // adapt to your API shape
         // map response to our form shape
         const mapped: CourseData = {
           courseType: Array.isArray(cd.courseType) ? cd.courseType : (cd.courseType ? [cd.courseType] : []),
@@ -142,7 +152,7 @@ if (target === "certificate") {
           certificate: cd.certificate || "",
           createdBy: cd.createdBy?._id || cd.createdBy || "",
         };
-
+console.log("API response:", courseRes.data);
         setForm(mapped);
 
         if (mapped.thumbnail) setThumbnailPreview(mapped.thumbnail);
@@ -200,13 +210,20 @@ if (target === "certificate") {
 
     setLoading(true);
     try {
-      // token from localStorage (or cookie) — adjust as per your auth implementation
-      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-      const res = await fetch(`/api/courses/${courseId}`, {
-        method: "PUT",
-        body: fd,
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
-      });
+      // const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      // const res = await fetch(`/api/courses/${courseId}`, {
+      //   method: "PUT",
+      //   body: fd,
+      //   headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      // });
+
+const token = localStorage.getItem("token");
+
+const res = await fetch(`/api/courses/${courseId}`, {
+  method: "PUT",
+  body: fd,
+  headers: { Authorization: `Bearer ${token}` },
+});
 
       const json = await res.json();
       if (res.ok) {
@@ -227,9 +244,85 @@ if (target === "certificate") {
     <label className="block text-sm font-medium text-gray-700 mb-1">{children}</label>
   );
 
-  // ---------- render ----------
   return (
-    <div className="max-w-4xl mx-auto bg-white shadow rounded-2xl p-6 mt-8">
+    <>
+      <div className="mb-[25px] md:flex items-center justify-between">
+        <h5 className="!mb-0">Settings</h5>
+
+        <ol className="breadcrumb mt-[12px] md:mt-0">
+          <li className="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
+            <Link
+              href="/dashboard/"
+              className="inline-block relative ltr:pl-[22px] rtl:pr-[22px] transition-all hover:text-primary-500"
+            >
+              <i className="material-symbols-outlined absolute ltr:left-0 rtl:right-0 !text-lg -mt-px text-primary-500 top-1/2 -translate-y-1/2">
+                home
+              </i>
+              Dashboard
+            </Link>
+          </li>
+ 
+          <li className="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
+            Settings
+          </li>
+        </ol>
+      </div>
+
+      <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
+        <div className="trezo-card-content">
+          {/* <Nav /> */}
+{/* start Nav */}
+ <ul className="mb-[10px]">
+        <li className="inline-block mb-[15px] ltr:mr-[11px] rtl:ml-[11px] ltr:last:mr-0 rtl:last:ml-0">
+          <Link
+            href={`/lms/video-settings/video-chapter/${courseId}`}
+            className={`block rounded-md font-medium py-[8.5px] px-[15px] text-primary-500 border border-primary-500 transition-all  ${
+              pathname === `/lms/video-settings/video-chapter/${courseId}/` 
+              ? "bg-primary-500 text-white" : ""
+            }`}
+          >
+            Video Chapter
+          </Link>
+        </li>
+
+        <li className="inline-block mb-[15px] ltr:mr-[11px] rtl:ml-[11px] ltr:last:mr-0 rtl:last:ml-0">
+          <Link
+            href={`/lms/video-settings/video-title/${courseId}`}
+            className={`block rounded-md font-medium py-[8.5px] px-[15px] text-primary-500 border border-primary-500 transition-all  ${
+              pathname === `/lms/video-settings/video-title/${courseId}/`
+                ? "bg-primary-500 text-white" : ""
+            }`}
+          >
+            Video Title
+          </Link>
+        </li>
+
+         <li className="inline-block mb-[15px] ltr:mr-[11px] rtl:ml-[11px] ltr:last:mr-0 rtl:last:ml-0">
+          <Link
+            href={`/lms/video-settings/video-link/${courseId}`}
+            className={`block rounded-md font-medium py-[8.5px] px-[15px] text-primary-500 border border-primary-500 transition-all  ${
+              pathname === `/lms/video-settings/video-link/${courseId}/`
+                ? "bg-primary-500 text-white" : ""
+            }`}
+          >
+            Video link
+          </Link>
+        </li>
+        <li className="inline-block mb-[15px] ltr:mr-[11px] rtl:ml-[11px] ltr:last:mr-0 rtl:last:ml-0">
+          <Link
+            href={`/lms/video-settings/${courseId}`}
+            className={`block rounded-md font-medium py-[8.5px] px-[15px] text-primary-500 border border-primary-500 transition-all  ${
+              pathname === `/lms/video-settings/${courseId}/`
+                ? "bg-primary-500 text-white"
+                : ""
+            }`}
+          >
+           Edit Course Details
+          </Link>
+        </li>
+      </ul>
+{/* end Nav */}
+           <div className="max-w-4xl mx-auto bg-white shadow rounded-2xl p-6 mt-8">
       <h2 className="text-2xl font-semibold mb-4">Edit Course</h2>
 
       {message && (
@@ -340,5 +433,8 @@ if (target === "certificate") {
         </div>
       </form>
     </div>
+        </div>
+      </div>
+    </>
   );
 }

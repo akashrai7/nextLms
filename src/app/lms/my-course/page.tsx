@@ -183,7 +183,7 @@ export default function CoursesPage() {
                        {/* href={`/lms/my-course/${course._id}`} */}
                       <Link
                        key={course._id}
-                       href={`/lms/videos/${course._id}`}
+                       href={`/lms/video-settings/${course._id}`}
                        
                         className="text-black dark:text-white transition-all hover:text-primary-500"
                       >
