@@ -41,7 +41,7 @@ export default function Page() {
                   <div className="sm:grid sm:grid-cols-2 sm:gap-[25px]">
                     <div className="mb-[20px] sm:mb-0 relative" id="passwordHideShow">
                       <label className="mb-[10px] text-black dark:text-white font-medium block">
-                        Old Password
+                        Chapter
                       </label>
                       <input
                         type="password"
@@ -53,7 +53,7 @@ export default function Page() {
           
                     <div className="mb-[20px] sm:mb-0 relative" id="passwordHideShow2">
                       <label className="mb-[10px] text-black dark:text-white font-medium block">
-                        New Password
+                        Video Title
                       </label>
                       <input
                         type="password"
@@ -68,7 +68,7 @@ export default function Page() {
                       id="passwordHideShow3"
                     >
                       <label className="mb-[10px] text-black dark:text-white font-medium block">
-                        Confirm Password
+                        Video Link
                       </label>
                       <input
                         type="password"

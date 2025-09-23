@@ -175,7 +175,7 @@ const ChapterSettings: React.FC = () => {
                 
                  
                  
-                  <div className="lg:grid lg:grid-cols-12  sm:gap-[15px]">
+                  <div className="lg:grid lg:grid-cols-12  sm:gap-[25px]">
                     <div className="lg:col-span-4 font-bold">
                       <h5 className="text-lg font-medium mb-4">
                         {editId ? "Edit Chapter" : "Add Chapter"}
@@ -238,26 +238,25 @@ const ChapterSettings: React.FC = () => {
                   <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">{g.name}</td>
                   <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">{g.createdBy}</td>
                   <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
-                    {/* <button
+                    <button
                       className="text-blue-500 mr-2"
                       onClick={() => {
                         setEditId(g._id);
                         setForm({ name: g.name });
-                        setOpen(true);
                       }}
                     >
                       
                       Edit
-                    </button> */}
-                    <button
+                    </button>
+                    {/* <button
                       className="text-red-500"
                       onClick={() => handleDelete(g._id)}
                     >
-                      {/* <i className="material-symbols-outlined !text-md">
+                      <i className="material-symbols-outlined !text-md">
                         delete
-                      </i> */}
+                      </i>
                       Delete
-                    </button>
+                    </button> */}
                   </td>
                 </tr>
               ))}
