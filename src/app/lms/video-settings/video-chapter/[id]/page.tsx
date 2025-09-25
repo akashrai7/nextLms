@@ -190,7 +190,7 @@ const ChapterSettings: React.FC = () => {
                     <form onSubmit={handleSubmit}>
                       <div className="relative w-full">
                         <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
-                          Course Title
+                          Chapter Title
                         </label>
                         <input
                           type="text"

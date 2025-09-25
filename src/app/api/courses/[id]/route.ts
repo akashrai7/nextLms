@@ -217,7 +217,7 @@ const { id } = await context.params;
     // const oldCourse = await Course.findById(params.id);
     const oldCourse = await Course.findById(id);
     if (!oldCourse) {
-      return NextResponse.json({ error: "Course not found" }, { status: 404 });
+      return NextResponse.json({ error: "Course not found." }, { status: 404 });
     }
 
     // 🔹 Track changes
