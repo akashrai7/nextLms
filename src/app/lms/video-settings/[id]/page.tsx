@@ -432,7 +432,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
               onChange={(e) => setField("summary", e.target.value)} 
               className="w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
                           required
-                          >
+                         / >
           </div>
         </div>
         
@@ -445,7 +445,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
             onChange={(e) => setField("description", e.target.value)} 
             className=" w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
                           required
-                          >
+                        /  >
           </div>
          </div>
           </div>
