@@ -321,8 +321,8 @@ const res = await fetch(`/api/courses/${courseId}`, {
           </Link>
         </li>
       </ul>
-{/* end Nav */}
-           <div className="max-w-4xl mx-auto bg-white shadow rounded-2xl p-6 mt-8">
+{/* end Nav  mx-auto */}
+           <div className="max-w-4xl  p-6 mt-8">
       <h2 className="text-2xl font-semibold mb-4">Edit Course</h2>
 
       {message && (
