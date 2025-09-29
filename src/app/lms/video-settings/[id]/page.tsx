@@ -422,7 +422,6 @@ const res = await fetch(`/api/courses/${courseId}`, {
                       </select>
              </div> 
           </div>
-        </div>
 
         <div>
           <div className="relative w-full">
