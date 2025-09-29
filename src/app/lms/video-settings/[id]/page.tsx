@@ -368,7 +368,9 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                         <select value={form.instructor} 
                           onChange={(e) => setField("instructor", e.target.value)} 
-                          className="w-full h-12 px-4 border rounded-lg">
+                          className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                          required
+                          >
                           <option value="">Select</option>
                           {settings.instructors?.map((u: any) => <option key={u._id} value={u._id}>{u.firstName || u.name}</option>)}
                         </select>
@@ -381,7 +383,9 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                        <select value={form.courseLevel} 
                          onChange={(e) => setField("courseLevel", e.target.value)} 
-                         className="w-full h-12 px-4 border rounded-lg">
+                         className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                          required
+                          >
                         <option value="">Select</option>
                         {settings.courseLevels?.map((c: any) => <option key={c._id} value={c._id}>{c.name}</option>)}
                        </select>
@@ -394,7 +398,9 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                        <select value={form.videoSource} 
                          onChange={(e) => setField("videoSource", e.target.value)} 
-                         className="w-full h-12 px-4 border rounded-lg">
+                         className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                          required
+                          >
                       <option value="">Select</option>
                         {settings.videoSources?.map((v: any) => <option key={v._id} value={v._id}>{v.name}</option>)}
                       </select>
@@ -407,7 +413,9 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                        <select value={form.certificate} 
                          onChange={(e) => setField("certificate", e.target.value as "YES" | "NO" | "")} 
-                         className="w-full h-12 px-4 border rounded-lg">
+                         className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                          required
+                          >
                         <option value="">Select</option>
                         <option value="YES">YES</option>
                         <option value="NO">NO</option>
@@ -423,7 +431,9 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
             <textarea value={form.summary} 
               onChange={(e) => setField("summary", e.target.value)} 
-              className="w-full h-24 px-4 py-2 border rounded-lg" />
+              className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                          required
+                          >
           </div>
         </div>
         
@@ -434,7 +444,9 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
             <textarea value={form.description} 
             onChange={(e) => setField("description", e.target.value)} 
-            className="w-full h-36 px-4 py-2 border rounded-lg" />
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                          required
+                          >
           </div>
          </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -471,13 +483,17 @@ const res = await fetch(`/api/courses/${courseId}`, {
         <div className="flex gap-4 items-center">
           <div>
             <label className="flex items-center gap-2">
-              <input type="checkbox" checked={form.courseType.includes("Online")} onChange={() => toggleCourseType("Online")} />
+              <input type="checkbox" 
+                checked={form.courseType.includes("Online")} 
+                onChange={() => toggleCourseType("Online")} />
               <span>Online</span>
             </label>
           </div>
           <div>
             <label className="flex items-center gap-2">
-              <input type="checkbox" checked={form.courseType.includes("Offline")} onChange={() => toggleCourseType("Offline")} />
+              <input type="checkbox" 
+                checked={form.courseType.includes("Offline")} 
+                onChange={() => toggleCourseType("Offline")} />
               <span>Offline</span>
             </label>
           </div>
