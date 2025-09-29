@@ -321,8 +321,8 @@ const res = await fetch(`/api/courses/${courseId}`, {
           </Link>
         </li>
       </ul>
-{/* end Nav */}
-           <div className="max-w-4xl mx-auto bg-white shadow rounded-2xl p-6 mt-8">
+{/* end Nav max-w-4xl mx-auto */}
+           <div className=" p-6 mt-8">
       <h2 className="text-2xl font-semibold mb-4">Edit Course</h2>
 
       {message && (
@@ -411,7 +411,8 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                        <select value={form.certificate} 
                          onChange={(e) => setField("certificate", e.target.value as "YES" | "NO" | "")} 
-                         className="w-full h-12 px-4 border rounded-lg">
+                         className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                  required >
                         <option value="">Select</option>
                         <option value="YES">YES</option>
                         <option value="NO">NO</option>
@@ -427,7 +428,8 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
             <textarea value={form.summary} 
               onChange={(e) => setField("summary", e.target.value)} 
-              className="w-full h-24 px-4 py-2 border rounded-lg" />
+              className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                  required />
           </div>
         </div>
         
@@ -438,7 +440,8 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
             <textarea value={form.description} 
             onChange={(e) => setField("description", e.target.value)} 
-            className="w-full h-36 px-4 py-2 border rounded-lg" />
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                  required />
           </div>
          </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
