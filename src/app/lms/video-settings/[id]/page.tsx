@@ -448,6 +448,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
                           >
           </div>
          </div>
+          </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <div className="relative w-full">
@@ -507,7 +508,6 @@ const res = await fetch(`/api/courses/${courseId}`, {
       </form>
     </div>
         </div>
-      </div>
     </>
   );
 }
