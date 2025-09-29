@@ -334,8 +334,18 @@ const res = await fetch(`/api/courses/${courseId}`, {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <InputLabel>Course Title</InputLabel>
-            <input name="title" value={form.title} onChange={(e) => setField("title", e.target.value)} className="w-full h-12 px-4 border rounded-lg" />
+            <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                          Course Title
+                        </label>
+                        <input
+                          name="title" value={form.title} 
+                          onChange={(e) => setField("title", e.target.value)}
+                          placeholder="Enter Chapter"
+                          className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                          required
+                        />
+                      </div> 
           </div>
 
           <div>
