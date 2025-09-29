@@ -345,81 +345,129 @@ const res = await fetch(`/api/courses/${courseId}`, {
                           className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
                           required
                         />
-                      </div> 
+              </div> 
           </div>
-
           <div>
-            <InputLabel>Language</InputLabel>
-            <select value={form.language} onChange={(e) => setField("language", e.target.value)} className="w-full h-12 px-4 border rounded-lg">
-              <option value="">Select</option>
-              {settings.languages?.map((l: any) => <option key={l._id} value={l._id}>{l.name}</option>)}
-            </select>
+            <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                          Language
+                        </label>
+                        <select value={form.language} 
+                          onChange={(e) => setField("language", e.target.value)} 
+                          className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                          required >
+                        <option value="">Select</option>
+                          {settings.languages?.map((l: any) => <option key={l._id} value={l._id}>{l.name}</option>)}
+                        </select>
+              </div> 
           </div>
-
           <div>
-            <InputLabel>Instructor</InputLabel>
-            <select value={form.instructor} onChange={(e) => setField("instructor", e.target.value)} className="w-full h-12 px-4 border rounded-lg">
-              <option value="">Select</option>
-              {settings.instructors?.map((u: any) => <option key={u._id} value={u._id}>{u.firstName || u.name}</option>)}
-            </select>
+            <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                          Instructor
+                        </label>
+                        <select value={form.instructor} 
+                          onChange={(e) => setField("instructor", e.target.value)} 
+                          className="w-full h-12 px-4 border rounded-lg">
+                          <option value="">Select</option>
+                          {settings.instructors?.map((u: any) => <option key={u._id} value={u._id}>{u.firstName || u.name}</option>)}
+                        </select>
+             </div> 
           </div>
-
           <div>
-            <InputLabel>Course Level</InputLabel>
-            <select value={form.courseLevel} onChange={(e) => setField("courseLevel", e.target.value)} className="w-full h-12 px-4 border rounded-lg">
-              <option value="">Select</option>
-              {settings.courseLevels?.map((c: any) => <option key={c._id} value={c._id}>{c.name}</option>)}
-            </select>
+            <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                          Course Level
+                        </label>
+                       <select value={form.courseLevel} 
+                         onChange={(e) => setField("courseLevel", e.target.value)} 
+                         className="w-full h-12 px-4 border rounded-lg">
+                        <option value="">Select</option>
+                        {settings.courseLevels?.map((c: any) => <option key={c._id} value={c._id}>{c.name}</option>)}
+                       </select>
+             </div> 
           </div>
-
-          <div>
-            <InputLabel>Video Source</InputLabel>
-            <select value={form.videoSource} onChange={(e) => setField("videoSource", e.target.value)} className="w-full h-12 px-4 border rounded-lg">
-              <option value="">Select</option>
-              {settings.videoSources?.map((v: any) => <option key={v._id} value={v._id}>{v.name}</option>)}
-            </select>
+           <div>
+            <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                          Video Source
+                        </label>
+                       <select value={form.videoSource} 
+                         onChange={(e) => setField("videoSource", e.target.value)} 
+                         className="w-full h-12 px-4 border rounded-lg">
+                      <option value="">Select</option>
+                        {settings.videoSources?.map((v: any) => <option key={v._id} value={v._id}>{v.name}</option>)}
+                      </select>
+             </div> 
           </div>
-
           <div>
-            <InputLabel>Certificate</InputLabel>
-            <select value={form.certificate} onChange={(e) => setField("certificate", e.target.value as "YES" | "NO" | "")} className="w-full h-12 px-4 border rounded-lg">
-              <option value="">Select</option>
-              <option value="YES">YES</option>
-              <option value="NO">NO</option>
-            </select>
+            <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                         Certificate
+                        </label>
+                       <select value={form.certificate} 
+                         onChange={(e) => setField("certificate", e.target.value as "YES" | "NO" | "")} 
+                         className="w-full h-12 px-4 border rounded-lg">
+                        <option value="">Select</option>
+                        <option value="YES">YES</option>
+                        <option value="NO">NO</option>
+                      </select>
+             </div> 
           </div>
         </div>
 
         <div>
-          <InputLabel>Course Summary</InputLabel>
-          <textarea value={form.summary} onChange={(e) => setField("summary", e.target.value)} className="w-full h-24 px-4 py-2 border rounded-lg" />
+          <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                         Course Summary
+                        </label>
+            <textarea value={form.summary} 
+              onChange={(e) => setField("summary", e.target.value)} 
+              className="w-full h-24 px-4 py-2 border rounded-lg" />
+          </div>
         </div>
-
+        
         <div>
-          <InputLabel>Course Description</InputLabel>
-          <textarea value={form.description} onChange={(e) => setField("description", e.target.value)} className="w-full h-36 px-4 py-2 border rounded-lg" />
-        </div>
-
+           <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                         Course Description
+                        </label>
+            <textarea value={form.description} 
+            onChange={(e) => setField("description", e.target.value)} 
+            className="w-full h-36 px-4 py-2 border rounded-lg" />
+          </div>
+         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <InputLabel>Thumbnail (≤ 500KB)</InputLabel>
+            <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                         Thumbnail (≤ 500KB)
+                        </label>
             <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0] || null, "thumbnail")} />
             {thumbnailPreview && <div className="mt-2"><img src={thumbnailPreview} alt="thumb" className="w-24 h-16 object-cover rounded" /></div>}
           </div>
-
+        </div>
           <div>
-            <InputLabel>Cover Photo (≤ 500KB)</InputLabel>
+            <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                         Cover Photo (≤ 500KB)
+                        </label>
             <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0] || null, "cover")} />
             {coverPreview && <div className="mt-2"><img src={coverPreview} alt="cover" className="w-24 h-16 object-cover rounded" /></div>}
           </div>
-
+        </div>
+          
           <div>
-            <InputLabel>Certificate Base (≤ 5MB)</InputLabel>
+            <div className="relative w-full">
+                        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">
+                         Certificate Base (≤ 5MB)
+                        </label>
             <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0] || null, "certificate")} />
             {certificatePreview && <div className="mt-2"><img src={certificatePreview} alt="cert" className="w-24 h-16 object-cover rounded" /></div>}
           </div>
         </div>
-
+        </div>
+        
         <div className="flex gap-4 items-center">
           <div>
             <label className="flex items-center gap-2">
