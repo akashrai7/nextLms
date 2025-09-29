@@ -368,7 +368,8 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                         <select value={form.instructor} 
                           onChange={(e) => setField("instructor", e.target.value)} 
-                          className="w-full h-12 px-4 border rounded-lg">
+                          className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                  required >
                           <option value="">Select</option>
                           {settings.instructors?.map((u: any) => <option key={u._id} value={u._id}>{u.firstName || u.name}</option>)}
                         </select>
@@ -381,7 +382,9 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                        <select value={form.courseLevel} 
                          onChange={(e) => setField("courseLevel", e.target.value)} 
-                         className="w-full h-12 px-4 border rounded-lg">
+                         className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                  required
+                         >
                         <option value="">Select</option>
                         {settings.courseLevels?.map((c: any) => <option key={c._id} value={c._id}>{c.name}</option>)}
                        </select>
@@ -394,7 +397,8 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                        <select value={form.videoSource} 
                          onChange={(e) => setField("videoSource", e.target.value)} 
-                         className="w-full h-12 px-4 border rounded-lg">
+                         className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
+                  required >
                       <option value="">Select</option>
                         {settings.videoSources?.map((v: any) => <option key={v._id} value={v._id}>{v.name}</option>)}
                       </select>
