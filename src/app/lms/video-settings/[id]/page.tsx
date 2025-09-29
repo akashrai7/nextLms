@@ -321,8 +321,8 @@ const res = await fetch(`/api/courses/${courseId}`, {
           </Link>
         </li>
       </ul>
-{/* end Nav  mx-auto */}
-           <div className="max-w-4xl  p-6 mt-8">
+{/* end Nav */}
+           <div className="max-w-4xl mx-auto bg-white shadow rounded-2xl p-6 mt-8">
       <h2 className="text-2xl font-semibold mb-4">Edit Course</h2>
 
       {message && (
@@ -355,7 +355,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         <select value={form.language} 
                           onChange={(e) => setField("language", e.target.value)} 
                           className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
-                           >
+                          required >
                         <option value="">Select</option>
                           {settings.languages?.map((l: any) => <option key={l._id} value={l._id}>{l.name}</option>)}
                         </select>
@@ -368,9 +368,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                         <select value={form.instructor} 
                           onChange={(e) => setField("instructor", e.target.value)} 
-                          className=" w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
-                          
-                          >
+                          className="w-full h-12 px-4 border rounded-lg">
                           <option value="">Select</option>
                           {settings.instructors?.map((u: any) => <option key={u._id} value={u._id}>{u.firstName || u.name}</option>)}
                         </select>
@@ -383,9 +381,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                        <select value={form.courseLevel} 
                          onChange={(e) => setField("courseLevel", e.target.value)} 
-                         className=" w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
-                          
-                          >
+                         className="w-full h-12 px-4 border rounded-lg">
                         <option value="">Select</option>
                         {settings.courseLevels?.map((c: any) => <option key={c._id} value={c._id}>{c.name}</option>)}
                        </select>
@@ -398,9 +394,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                        <select value={form.videoSource} 
                          onChange={(e) => setField("videoSource", e.target.value)} 
-                         className="w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
-                          
-                          >
+                         className="w-full h-12 px-4 border rounded-lg">
                       <option value="">Select</option>
                         {settings.videoSources?.map((v: any) => <option key={v._id} value={v._id}>{v.name}</option>)}
                       </select>
@@ -413,15 +407,14 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
                        <select value={form.certificate} 
                          onChange={(e) => setField("certificate", e.target.value as "YES" | "NO" | "")} 
-                         className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
-                          required
-                          >
+                         className="w-full h-12 px-4 border rounded-lg">
                         <option value="">Select</option>
                         <option value="YES">YES</option>
                         <option value="NO">NO</option>
                       </select>
              </div> 
           </div>
+        </div>
 
         <div>
           <div className="relative w-full">
@@ -430,9 +423,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
             <textarea value={form.summary} 
               onChange={(e) => setField("summary", e.target.value)} 
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
-                          required
-                         / >
+              className="w-full h-24 px-4 py-2 border rounded-lg" />
           </div>
         </div>
         
@@ -443,12 +434,9 @@ const res = await fetch(`/api/courses/${courseId}`, {
                         </label>
             <textarea value={form.description} 
             onChange={(e) => setField("description", e.target.value)} 
-            className=" w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
-                          required
-                        /  >
+            className="w-full h-36 px-4 py-2 border rounded-lg" />
           </div>
          </div>
-          </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <div className="relative w-full">
@@ -483,17 +471,13 @@ const res = await fetch(`/api/courses/${courseId}`, {
         <div className="flex gap-4 items-center">
           <div>
             <label className="flex items-center gap-2">
-              <input type="checkbox" 
-                checked={form.courseType.includes("Online")} 
-                onChange={() => toggleCourseType("Online")} />
+              <input type="checkbox" checked={form.courseType.includes("Online")} onChange={() => toggleCourseType("Online")} />
               <span>Online</span>
             </label>
           </div>
           <div>
             <label className="flex items-center gap-2">
-              <input type="checkbox" 
-                checked={form.courseType.includes("Offline")} 
-                onChange={() => toggleCourseType("Offline")} />
+              <input type="checkbox" checked={form.courseType.includes("Offline")} onChange={() => toggleCourseType("Offline")} />
               <span>Offline</span>
             </label>
           </div>
@@ -508,6 +492,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
       </form>
     </div>
         </div>
+      </div>
     </>
   );
 }
