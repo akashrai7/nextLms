@@ -4,10 +4,13 @@ import Institute from "@/models/Institute";
 import { parseForm } from "@/lib/fileUpload";
 
 // ✅ VIEW ONE
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+  req: Request,
+  context: { params: { id: string } }
+) {
   await dbConnect();
   try {
-    const { id } = params;
+    const id = context.params.id; // params ab context se liye
     const institute = await Institute.findById(id);
 
     if (!institute) {
