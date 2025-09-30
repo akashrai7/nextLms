@@ -22,7 +22,7 @@ export async function GET(req: Request, context: any) {
 
 
 // ✅ UPDATE
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: Request, context: any) {
   await dbConnect();
   try {
     const { fields, files } = await parseForm(req);
@@ -36,7 +36,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       updateData.institutePAN = files.institutePAN.newFilename;
     }
 
-    const institute = await Institute.findByIdAndUpdate(params.id, updateData, { new: true });
+    const institute = await Institute.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!institute) {
       return NextResponse.json({ success: false, message: "Not Found" }, { status: 404 });
@@ -49,10 +49,10 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 }
 
 // ✅ DELETE
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: Request, context: any) {
   await dbConnect();
   try {
-    const institute = await Institute.findByIdAndDelete(params.id);
+     const institute = await Institute.findById(id);
 
     if (!institute) {
       return NextResponse.json({ success: false, message: "Not Found" }, { status: 404 });
