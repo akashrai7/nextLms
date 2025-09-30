@@ -1,21 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/lib/db";
 import Institute from "@/models/Institute";
 import { parseForm } from "@/lib/fileUpload";
 
-export const config = {
-  api: { bodyParser: false },
-};
-
 // ✅ VIEW ONE
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   await dbConnect();
   try {
-    const institute = await Institute.findById(params.id)
-      .populate("instituteType")
-      .populate("affiliationBoard")
-      .populate("state")
-      .populate("district");
+    const { id } = params;
+    const institute = await Institute.findById(id);
 
     if (!institute) {
       return NextResponse.json({ success: false, message: "Not Found" }, { status: 404 });
@@ -28,7 +21,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 }
 
 // ✅ UPDATE
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   await dbConnect();
   try {
     const { fields, files } = await parseForm(req);
@@ -55,7 +48,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // ✅ DELETE
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   await dbConnect();
   try {
     const institute = await Institute.findByIdAndDelete(params.id);
