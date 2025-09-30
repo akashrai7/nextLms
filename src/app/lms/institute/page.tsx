@@ -1,15 +1,22 @@
 "use client";
 import { useState, useEffect } from "react";
 
-interface InstituteFormProps {
-  defaultValues?: any;
-  onSubmitSuccess?: () => void;
+export default function InstitutePage() {
+  return (
+    <div className="p-6">
+      <h1 className="text-xl font-bold mb-4">Add Institute</h1>
+      <InstituteForm />
+    </div>
+  );
 }
 
-export default function InstituteForm({
+function InstituteForm({
   defaultValues,
   onSubmitSuccess,
-}: InstituteFormProps) {
+}: {
+  defaultValues?: any;
+  onSubmitSuccess?: () => void;
+}) {
   const [form, setForm] = useState<any>(
     defaultValues || {
       name: "",
@@ -147,10 +154,7 @@ export default function InstituteForm({
             institutePAN: null,
           });
         }
-        // ✅ Fixed ESLint no-unused-expressions
-        if (onSubmitSuccess) {
-          onSubmitSuccess();
-        }
+        if (onSubmitSuccess) onSubmitSuccess();
       } else {
         setErrorMsg(data.message || "Something went wrong");
       }
