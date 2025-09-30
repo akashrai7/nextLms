@@ -40,28 +40,23 @@ export default function InstituteForm({
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  // 🔹 Dropdown data
   const [instituteTypes, setInstituteTypes] = useState<any[]>([]);
   const [affiliationBoards, setAffiliationBoards] = useState<any[]>([]);
   const [trainingModeBoards, setTrainingModeBoards] = useState<any[]>([]);
-  const [trainingLanguageBoards, setTrainingLanguageBoards] = useState<any[]>(
-    []
-  );
+  const [trainingLanguageBoards, setTrainingLanguageBoards] = useState<any[]>([]);
   const [states, setStates] = useState<any[]>([]);
   const [districts, setDistricts] = useState<any[]>([]);
 
-  // 🔹 Fetch Dropdown Data from APIs
   useEffect(() => {
     const fetchDropdowns = async () => {
       try {
-        const [typesRes, boardsRes, modeRes, langRes, statesRes] =
-          await Promise.all([
-            fetch("/api/settings/institute_type").then((r) => r.json()),
-            fetch("/api/settings/affiliation_board").then((r) => r.json()),
-            fetch("/api/settings/training_mode").then((r) => r.json()),
-            fetch("/api/settings/training_language").then((r) => r.json()),
-            fetch("/api/settings/state").then((r) => r.json()),
-          ]);
+        const [typesRes, boardsRes, modeRes, langRes, statesRes] = await Promise.all([
+          fetch("/api/settings/institute_type").then((r) => r.json()),
+          fetch("/api/settings/affiliation_board").then((r) => r.json()),
+          fetch("/api/settings/training_mode").then((r) => r.json()),
+          fetch("/api/settings/training_language").then((r) => r.json()),
+          fetch("/api/settings/state").then((r) => r.json()),
+        ]);
 
         setInstituteTypes(typesRes.data || []);
         setAffiliationBoards(boardsRes.data || []);
@@ -75,7 +70,6 @@ export default function InstituteForm({
     fetchDropdowns();
   }, []);
 
-  // 🔹 Fetch Districts when State changes
   useEffect(() => {
     if (!form.state) return;
     const fetchDistricts = async () => {
@@ -90,7 +84,6 @@ export default function InstituteForm({
     fetchDistricts();
   }, [form.state]);
 
-  // 🔹 Handle Input Change
   const handleChange = (e: any) => {
     const { name, value, files } = e.target;
 
@@ -110,7 +103,6 @@ export default function InstituteForm({
     }
   };
 
-  // 🔹 Submit
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setErrorMsg("");
@@ -155,7 +147,10 @@ export default function InstituteForm({
             institutePAN: null,
           });
         }
-        onSubmitSuccess && onSubmitSuccess();
+        // ✅ Fixed ESLint no-unused-expressions
+        if (onSubmitSuccess) {
+          onSubmitSuccess();
+        }
       } else {
         setErrorMsg(data.message || "Something went wrong");
       }
@@ -174,8 +169,10 @@ export default function InstituteForm({
       </h2>
 
       {/* Messages */}
+      
       {successMsg && <p className="text-green-600">{successMsg}</p>}
       {errorMsg && <p className="text-red-600">{errorMsg}</p>}
+      
     <div className="grid grid-cols-2 gap-4"> 
       {/* Institute Name */}
       <div>
