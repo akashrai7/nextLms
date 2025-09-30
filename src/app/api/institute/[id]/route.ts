@@ -4,10 +4,10 @@ import Institute from "@/models/Institute";
 import { parseForm } from "@/lib/fileUpload";
 
 // ✅ VIEW ONE
-export async function GET(req: Request, context: any) {
+export async function GET(req: NextRequest, context: { params: { id: string } }) {
   await dbConnect();
   try {
-    const { id } = context.params; // context.params se id le
+    const { id } = context.params;
     const institute = await Institute.findById(id);
 
     if (!institute) {
@@ -20,11 +20,11 @@ export async function GET(req: Request, context: any) {
   }
 }
 
-
 // ✅ UPDATE
-export async function GET(req: Request, context: any) {
+export async function PUT(req: NextRequest, context: { params: { id: string } }) {
   await dbConnect();
   try {
+    const { id } = context.params;
     const { fields, files } = await parseForm(req);
 
     const updateData: any = { ...fields };
@@ -49,10 +49,11 @@ export async function GET(req: Request, context: any) {
 }
 
 // ✅ DELETE
-export async function GET(req: Request, context: any) {
+export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
   await dbConnect();
   try {
-     const institute = await Institute.findById(id);
+    const { id } = context.params;
+    const institute = await Institute.findByIdAndDelete(id);
 
     if (!institute) {
       return NextResponse.json({ success: false, message: "Not Found" }, { status: 404 });
