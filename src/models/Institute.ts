@@ -39,7 +39,7 @@ const InstituteSchema = new Schema(
     officialWebsite: { type: String },
     fullAddress: { type: String, required: true },
     city: { type: String, required: true },
-    district: { type: Schema.Types.ObjectId, ref: "districts", required: true },
+    district: { type: Schema.Types.ObjectId, ref: "districts" },
     state: { type: Schema.Types.ObjectId, ref: "states", required: true },
     pincode: { type: String, required: true },
     trainingMode: { type: String, required: true },

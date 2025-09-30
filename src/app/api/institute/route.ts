@@ -3,22 +3,30 @@ import { dbConnect } from "@/lib/db";
 import Institute from "@/models/Institute";
 import { parseForm } from "@/lib/fileUpload";
 
+// ✅ Required for formidable
 export const config = {
-  api: { bodyParser: false }, // important for formidable
+  api: { bodyParser: false },
 };
 
-// ✅ CREATE
+// CREATE
 export async function POST(req: Request) {
   await dbConnect();
   try {
-    const { fields, files } = await parseForm(req);
+    const { fields, files } = await parseForm(req as any);
 
-    // File paths
-    const schoolRegFile = files.schoolRegCertificate?.newFilename;
-    const panFile = files.institutePAN?.newFilename;
+    // ✅ Normalize fields
+    const normalizedFields = normalizeFields(fields);
 
+    // Files
+    const schoolRegFile = files.schoolRegCertificate?.[0]?.newFilename;
+    const panFile = files.institutePAN?.[0]?.newFilename;
+
+    // Create institute
     const institute = await Institute.create({
-      ...fields,
+      ...normalizedFields,
+      computerCount: normalizedFields.computerCount
+        ? Number(normalizedFields.computerCount)
+        : 0,
       schoolRegCertificate: schoolRegFile,
       institutePAN: panFile,
     });
@@ -29,7 +37,17 @@ export async function POST(req: Request) {
   }
 }
 
-// ✅ GET ALL
+// 🔹 Normalization helper
+function normalizeFields(fields: any) {
+  const normalized: any = {};
+  Object.keys(fields).forEach((key) => {
+    const value = fields[key];
+    normalized[key] = Array.isArray(value) ? value[0] : value;
+  });
+  return normalized;
+}
+
+// GET ALL
 export async function GET() {
   await dbConnect();
   try {
@@ -44,3 +62,4 @@ export async function GET() {
     return NextResponse.json({ success: false, message: err.message }, { status: 500 });
   }
 }
+

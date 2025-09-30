@@ -6,7 +6,10 @@ interface InstituteFormProps {
   onSubmitSuccess?: () => void;
 }
 
-export default function InstituteForm({ defaultValues, onSubmitSuccess }: InstituteFormProps) {
+export default function InstituteForm({
+  defaultValues,
+  onSubmitSuccess,
+}: InstituteFormProps) {
   const [form, setForm] = useState<any>(
     defaultValues || {
       name: "",
@@ -26,8 +29,8 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
       pincode: "",
       trainingMode: "",
       trainingLanguage: "",
-      computerLab: "No",
-      computerCount: "",
+      computerLab: defaultValues?.computerLab || "No",
+      computerCount: defaultValues?.computerCount || "",
       schoolRegCertificate: null,
       institutePAN: null,
     }
@@ -40,6 +43,10 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
   // 🔹 Dropdown data
   const [instituteTypes, setInstituteTypes] = useState<any[]>([]);
   const [affiliationBoards, setAffiliationBoards] = useState<any[]>([]);
+  const [trainingModeBoards, setTrainingModeBoards] = useState<any[]>([]);
+  const [trainingLanguageBoards, setTrainingLanguageBoards] = useState<any[]>(
+    []
+  );
   const [states, setStates] = useState<any[]>([]);
   const [districts, setDistricts] = useState<any[]>([]);
 
@@ -47,13 +54,19 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
   useEffect(() => {
     const fetchDropdowns = async () => {
       try {
-        const [typesRes, boardsRes, statesRes] = await Promise.all([
-          fetch("/api/settings/institute_type").then((r) => r.json()),
-          fetch("/api/settings/affiliation_board").then((r) => r.json()),
-          fetch("/api/settings/state").then((r) => r.json()),
-        ]);
+        const [typesRes, boardsRes, modeRes, langRes, statesRes] =
+          await Promise.all([
+            fetch("/api/settings/institute_type").then((r) => r.json()),
+            fetch("/api/settings/affiliation_board").then((r) => r.json()),
+            fetch("/api/settings/training_mode").then((r) => r.json()),
+            fetch("/api/settings/training_language").then((r) => r.json()),
+            fetch("/api/settings/state").then((r) => r.json()),
+          ]);
+
         setInstituteTypes(typesRes.data || []);
         setAffiliationBoards(boardsRes.data || []);
+        setTrainingModeBoards(modeRes.data || []);
+        setTrainingLanguageBoards(langRes.data || []);
         setStates(statesRes.data || []);
       } catch (err) {
         console.error("Failed to load dropdowns", err);
@@ -117,6 +130,31 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
       const data = await res.json();
       if (data.success) {
         setSuccessMsg("Institute saved successfully!");
+        if (!defaultValues) {
+          setForm({
+            name: "",
+            schoolCode: "",
+            instituteType: "",
+            affiliationBoard: "",
+            principalName: "",
+            officialMobile: "",
+            alternateMobile: "",
+            officialEmail: "",
+            institutePhone: "",
+            officialWebsite: "",
+            fullAddress: "",
+            city: "",
+            state: "",
+            district: "",
+            pincode: "",
+            trainingMode: "",
+            trainingLanguage: "",
+            computerLab: "No",
+            computerCount: "",
+            schoolRegCertificate: null,
+            institutePAN: null,
+          });
+        }
         onSubmitSuccess && onSubmitSuccess();
       } else {
         setErrorMsg(data.message || "Something went wrong");
@@ -127,9 +165,18 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white rounded-xl shadow-md space-y-6">
-      <h2 className="text-xl font-bold">{defaultValues ? "Edit Institute" : "Add Institute"}</h2>
+    <form
+      onSubmit={handleSubmit}
+      className="p-6 bg-white rounded-xl shadow-md space-y-6"
+    >
+      <h2 className="text-xl font-bold">
+        {defaultValues ? "Edit Institute" : "Add Institute"}
+      </h2>
 
+      {/* Messages */}
+      {successMsg && <p className="text-green-600">{successMsg}</p>}
+      {errorMsg && <p className="text-red-600">{errorMsg}</p>}
+    <div className="grid grid-cols-2 gap-4"> 
       {/* Institute Name */}
       <div>
         <label className="block text-sm font-medium">Institute Name</label>
@@ -141,6 +188,102 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
           className="w-full border rounded-lg p-2"
           required
         />
+      </div>
+    </div>
+
+    <div className="grid grid-cols-2 gap-4"> 
+      {/* School Code */}
+      <div>
+        <label className="block text-sm font-medium">School Code (optional)</label>
+        <input
+          type="text"
+          name="schoolCode"
+          value={form.schoolCode}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-2"
+        />
+      </div>
+
+      {/* Principal Name */}
+      <div>
+        <label className="block text-sm font-medium">Principal Name</label>
+        <input
+          type="text"
+          name="principalName"
+          value={form.principalName}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-2"
+          required
+        />
+      </div>
+    </div>
+      {/* Contact Info */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium">Official Mobile</label>
+          <input
+            type="text"
+            name="officialMobile"
+            value={form.officialMobile}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium">
+            Alternate Mobile (optional)
+          </label>
+          <input
+            type="text"
+            name="alternateMobile"
+            value={form.alternateMobile}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">  
+        {/* official Email */}
+      <div>
+        <label className="block text-sm font-medium">official Email</label>
+        <input
+          type="email"
+          name="officialEmail"
+          value={form.officialEmail}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-2"
+        />
+      </div>
+
+       {/* institutePhone */}
+      <div>
+        <label className="block text-sm font-medium">Tnstitute Phone</label>
+        <input
+          type="text"
+          name="institutePhone"
+          value={form.institutePhone}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-2"
+        />
+      </div> 
+    </div>
+
+    <div className="grid grid-cols-2 gap-4"> 
+ {/* official Website */}
+      <div>
+        <label className="block text-sm font-medium">official Website</label>
+        <input
+          type="text"
+          name="officialWebsite"
+          value={form.officialWebsite}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-2"
+        />
+      </div> 
+
       </div>
 
       {/* Dropdowns */}
@@ -182,6 +325,18 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
         </div>
       </div>
 
+      {/* Address */}
+      <div>
+        <label className="block text-sm font-medium">Full Address</label>
+        <textarea
+          name="fullAddress"
+          value={form.fullAddress}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-2"
+          required
+        ></textarea>
+      </div>
+
       {/* State & District */}
       <div className="grid grid-cols-2 gap-4">
         <div>
@@ -209,7 +364,6 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
             value={form.district}
             onChange={handleChange}
             className="w-full border rounded-lg p-2"
-            required
           >
             <option value="">Select</option>
             {districts.map((d) => (
@@ -219,11 +373,106 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
             ))}
           </select>
         </div>
+</div>
+<div className="grid grid-cols-2 gap-4">
+        {/* City */}
+      <div>
+        <label className="block text-sm font-medium">City</label>
+        <input
+          type="text"
+          name="city"
+          value={form.city}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-2"
+        />
+      </div> 
+
+       {/* Pin Code */}
+      <div>
+        <label className="block text-sm font-medium">Pin Code</label>
+        <input
+          type="text"
+          name="pincode"
+          value={form.pincode}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-2"
+        />
+      </div>
+
+</div>
+
+      {/* Training Mode & Language */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium">Training Mode</label>
+          <select
+            name="trainingMode"
+            value={form.trainingMode}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+            required
+          >
+            <option value="">Select</option>
+            {trainingModeBoards.map((b) => (
+              <option key={b._id} value={b._id}>
+                {b.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Training Language</label>
+          <select
+            name="trainingLanguage"
+            value={form.trainingLanguage}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+            required
+          >
+            <option value="">Select</option>
+            {trainingLanguageBoards.map((b) => (
+              <option key={b._id} value={b._id}>
+                {b.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Computer Lab */}
+      <div>
+        <label className="block text-sm font-medium">Computer Lab</label>
+        <div className="flex gap-4">
+          {["Yes", "No", "Partial"].map((opt) => (
+            <label key={opt} className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="computerLab"
+                value={opt}
+                checked={form.computerLab === opt}
+                onChange={handleChange}
+              />
+              {opt}
+            </label>
+          ))}
+        </div>
+        {form.computerLab === "Yes" && (
+          <input
+            type="number"
+            name="computerCount"
+            value={form.computerCount}
+            onChange={handleChange}
+            placeholder="Number of Computers"
+            className="w-full border rounded-lg p-2 mt-2"
+          />
+        )}
       </div>
 
       {/* File Uploads */}
       <div>
-        <label className="block text-sm font-medium">School Registration Certificate</label>
+        <label className="block text-sm font-medium">
+          School Registration Certificate
+        </label>
         <input type="file" name="schoolRegCertificate" onChange={handleChange} />
         {errors.schoolRegCertificate && (
           <p className="text-red-500 text-sm">{errors.schoolRegCertificate}</p>
@@ -238,12 +487,11 @@ export default function InstituteForm({ defaultValues, onSubmitSuccess }: Instit
         )}
       </div>
 
-      {/* Messages */}
-      {successMsg && <p className="text-green-600">{successMsg}</p>}
-      {errorMsg && <p className="text-red-600">{errorMsg}</p>}
-
       {/* Submit */}
-      <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg">
+      <button
+        type="submit"
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+      >
         {defaultValues ? "Update" : "Save"}
       </button>
     </form>
