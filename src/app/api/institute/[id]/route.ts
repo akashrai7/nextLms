@@ -4,7 +4,7 @@ import Institute from "@/models/Institute";
 import { parseForm } from "@/lib/fileUpload";
 
 // ✅ VIEW ONE
-export async function GET(req: NextRequest, context: { params: { id: string } }) {
+export async function GET(req: NextRequest, context: any) {
   await dbConnect();
   try {
     const { id } = context.params;
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
 }
 
 // ✅ UPDATE
-export async function PUT(req: NextRequest, context: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context: any) {
   await dbConnect();
   try {
     const { id } = context.params;
@@ -49,7 +49,7 @@ export async function PUT(req: NextRequest, context: { params: { id: string } })
 }
 
 // ✅ DELETE
-export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: any) {
   await dbConnect();
   try {
     const { id } = context.params;
