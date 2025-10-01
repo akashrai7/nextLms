@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 // ----------------- Institute Page -----------------
 export default function InstitutePage() {
@@ -70,26 +72,49 @@ export default function InstitutePage() {
   );
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Manage Institutes</h1>
+<>
+     {/* Page Header */}
+          <div className="mb-[25px] md:flex items-center justify-between">
+            <h5 className="!mb-0">Institute</h5>
+    
+            <ol className="breadcrumb mt-[12px] md:mt-0">
+              <li className="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
+                <Link
+                  href="/dashboard/"
+                  className="inline-block relative ltr:pl-[22px] rtl:pr-[22px] transition-all hover:text-primary-500"
+                >
+                  <i className="material-symbols-outlined absolute ltr:left-0 rtl:right-0 !text-lg -mt-px text-primary-500 top-1/2 -translate-y-1/2">
+                    home
+                  </i>
+                  Dashboard
+                </Link>
+              </li>
+    
+              <li className="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
+                System Settings 
+              </li>
+    
+              <li className="breadcrumb-item inline-block relative text-sm mx-[11px] ltr:first:ml-0 rtl:first:mr-0 ltr:last:mr-0 rtl:last:ml-0">
+                Institute
+              </li>
+            </ol>
+          </div>
 
+
+   <div className="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md shadow-sm">
+        <div className="trezo-card-header mb-[20px] md:mb-[25px] sm:flex items-center justify-between">
       {/* Success & Error */}
       {successMsg && <p className="text-green-600 mb-2">{successMsg}</p>}
       {errorMsg && <p className="text-red-600 mb-2">{errorMsg}</p>}
 
-      <div className="flex justify-between items-center mb-4">
-        {/* Add Button */}
-        <button
-          onClick={() => {
-            setEditingInstitute(null);
-            setIsModalOpen(true);
-          }}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-        >
-          + Add Institute
-        </button>
+      
 
         {/* Search */}
+         <div className="trezo-card-title">
+            <form className="relative sm:w-[265px]">
+            <label className="absolute ltr:left-[13px] rtl:right-[13px] top-1/2 -translate-y-1/2">
+              <i className="material-symbols-outlined">search</i>
+            </label>
         <input
           type="text"
           placeholder="Search by name, city, principal..."
@@ -98,24 +123,41 @@ export default function InstitutePage() {
             setSearch(e.target.value);
             setCurrentPage(1);
           }}
-          className="border rounded-lg px-3 py-2 w-1/3"
+          className="bg-gray-50 border h-[36px] text-xs rounded-md w-full block pl-[38px]"
         />
+            </form>
+         </div>
+
+        {/* Add Button */}
+                <div className="trezo-card-subtitle mt-[15px] sm:mt-0">
+        <button
+          onClick={() => {
+            setEditingInstitute(null);
+            setIsModalOpen(true);
+          }}
+          className="inline-block transition-all rounded-md font-medium px-[13px] py-[6px] text-primary-500 border border-primary-500 hover:bg-primary-500 hover:text-white"
+        >
+          + Add Institute
+        </button>
+                </div>
+        
       </div>
+      
 
       {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full border border-gray-300">
-          <thead className="bg-gray-100">
+      <div className="table-responsive overflow-x-auto">
+          <table className="w-full">
+            <thead className="text-black dark:text-white">
             <tr>
-              <th className="border px-4 py-2">#</th>
-              <th className="border px-4 py-2">Name</th>
-              <th className="border px-4 py-2">Principal</th>
-              <th className="border px-4 py-2">Phone</th>
-              <th className="border px-4 py-2">City</th>
-              <th className="border px-4 py-2">Actions</th>
+              <th className="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">#</th>
+              <th className="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">Name</th>
+              <th className="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">Principal</th>
+              <th className="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">Phone</th>
+              <th className="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">City</th>
+              <th className="font-medium ltr:text-left rtl:text-right px-[20px] py-[11px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 bg-primary-50 dark:bg-[#15203c] whitespace-nowrap">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-black dark:text-white">
             {loading ? (
               <tr>
                 <td colSpan={6} className="text-center p-4">
@@ -125,14 +167,14 @@ export default function InstitutePage() {
             ) : paginatedData.length > 0 ? (
               paginatedData.map((inst, idx) => (
                 <tr key={inst._id}>
-                  <td className="border px-4 py-2">
+                  <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">
                     {(currentPage - 1) * itemsPerPage + idx + 1}
                   </td>
-                  <td className="border px-4 py-2">{inst.name}</td>
-                  <td className="border px-4 py-2">{inst.principalName}</td>
-                  <td className="border px-4 py-2">{inst.officialMobile}</td>
-                  <td className="border px-4 py-2">{inst.city}</td>
-                  <td className="border px-4 py-2 space-x-2">
+                  <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">{inst.name}</td>
+                  <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">{inst.principalName}</td>
+                  <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">{inst.officialMobile}</td>
+                  <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036]">{inst.city}</td>
+                  <td className="ltr:text-left rtl:text-right whitespace-nowrap px-[20px] py-[15px] md:ltr:first:pl-[25px] md:rtl:first:pr-[25px] ltr:first:pr-0 rtl:first:pl-0 border-b border-gray-100 dark:border-[#172036] space-x-2">
                     <button
                       onClick={() => {
                         setEditingInstitute(inst);
@@ -164,7 +206,7 @@ export default function InstitutePage() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center mt-4 gap-2">
+        <div className="flex justify-between items-center mt-3">
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage((p) => p - 1)}
@@ -195,15 +237,16 @@ export default function InstitutePage() {
         </div>
       )}
 
+    </div>
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 shadow-lg rounded-md">
+          <div className="bg-white p-6 rounded-lg  w-11/12 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold">
+              <h5 className="text-lg font-bold">
                 {editingInstitute ? "Edit Institute" : "Add Institute"}
-              </h2>
+              </h5>
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="text-red-500 font-bold"
@@ -221,7 +264,8 @@ export default function InstitutePage() {
           </div>
         </div>
       )}
-    </div>
+    
+</>    
   );
 }
 
@@ -388,7 +432,7 @@ function InstituteForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-4 bg-white rounded-xl shadow-md space-y-6"
+      className="p-4 bg-white space-y-6"
     >
       {successMsg && <p className="text-green-600">{successMsg}</p>}
       {errorMsg && <p className="text-red-600">{errorMsg}</p>}
@@ -396,141 +440,164 @@ function InstituteForm({
       {/* ---- All Fields ---- */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">Institute Name</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Institute Name</label>
           <input
             type="text"
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
             required
           />
+          </div>
         </div>
         <div>
-          <label className="block text-sm font-medium">School Code</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">School Code</label>
           <input
             type="text"
             name="schoolCode"
             value={form.schoolCode}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           />
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">Principal Name</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Principal Name</label>
           <input
             type="text"
             name="principalName"
             value={form.principalName}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
             required
           />
+          </div>
         </div>
         <div>
-          <label className="block text-sm font-medium">Official Mobile</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Official Mobile</label>
           <input
             type="text"
             name="officialMobile"
             value={form.officialMobile}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
             required
           />
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">Alternate Mobile</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Alternate Mobile</label>
           <input
             type="text"
             name="alternateMobile"
             value={form.alternateMobile}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           />
+          </div>
         </div>
         <div>
-          <label className="block text-sm font-medium">Official Email</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Official Email</label>
           <input
             type="email"
             name="officialEmail"
             value={form.officialEmail}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           />
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">Institute Phone</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Institute Phone</label>
           <input
             type="text"
             name="institutePhone"
             value={form.institutePhone}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           />
+          </div>
         </div>
         <div>
-          <label className="block text-sm font-medium">Website</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Website</label>
           <input
             type="text"
             name="officialWebsite"
             value={form.officialWebsite}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           />
+          </div>
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Full Address</label>
+        <div className="relative w-full">
+        <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Full Address</label>
         <textarea
           name="fullAddress"
           value={form.fullAddress}
           onChange={handleChange}
-          className="w-full border rounded-lg p-2"
+          className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
         />
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">City</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">City</label>
           <input
             type="text"
             name="city"
             value={form.city}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           />
+          </div>
         </div>
         <div>
-          <label className="block text-sm font-medium">Pincode</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Pincode</label>
           <input
             type="text"
             name="pincode"
             value={form.pincode}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           />
+          </div>
         </div>
       </div>
 
       {/* State & District */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">State</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">State</label>
           <select
             name="state"
             value={form.state}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
             required
           >
             <option value="">Select</option>
@@ -540,14 +607,16 @@ function InstituteForm({
               </option>
             ))}
           </select>
+          </div>
         </div>
         <div>
-          <label className="block text-sm font-medium">District</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">District</label>
           <select
             name="district"
             value={form.district}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           >
             <option value="">Select</option>
             {districts.map((d) => (
@@ -556,18 +625,20 @@ function InstituteForm({
               </option>
             ))}
           </select>
+          </div>
         </div>
       </div>
 
       {/* Dropdowns */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">Institute Type</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Institute Type</label>
           <select
             name="instituteType"
             value={form.instituteType}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
             required
           >
             <option value="">Select</option>
@@ -577,14 +648,16 @@ function InstituteForm({
               </option>
             ))}
           </select>
+          </div>
         </div>
         <div>
-          <label className="block text-sm font-medium">Affiliation Board</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Affiliation Board</label>
           <select
             name="affiliationBoard"
             value={form.affiliationBoard}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
             required
           >
             <option value="">Select</option>
@@ -594,17 +667,19 @@ function InstituteForm({
               </option>
             ))}
           </select>
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">Training Mode</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Training Mode</label>
           <select
             name="trainingMode"
             value={form.trainingMode}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
             required
           >
             <option value="">Select</option>
@@ -614,14 +689,16 @@ function InstituteForm({
               </option>
             ))}
           </select>
+          </div>
         </div>
         <div>
-          <label className="block text-sm font-medium">Training Language</label>
+            <div className="relative w-full">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Training Language</label>
           <select
             name="trainingLanguage"
             value={form.trainingLanguage}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
             required
           >
             <option value="">Select</option>
@@ -631,13 +708,14 @@ function InstituteForm({
               </option>
             ))}
           </select>
+          </div>
         </div>
       </div>
 
       {/* Computer Lab */}
       <div>
-        <label className="block text-sm font-medium">Computer Lab</label>
-        <div className="flex gap-4">
+        <label className=" px-1 text-sm text-gray-500">Computer Lab</label>
+        <div className="flex gap-4 p-[10px]">
           {["Yes", "No", "Partial"].map((opt) => (
             <label key={opt} className="flex items-center gap-2">
               <input
@@ -652,20 +730,23 @@ function InstituteForm({
           ))}
         </div>
         {form.computerLab === "Yes" && (
+            <div className="relative w-full">
+                 <label className="absolute -top-2 left-3 bg-white px-1 text-sm text-gray-500">Number of Computers</label>
           <input
             type="number"
             name="computerCount"
             value={form.computerCount}
             onChange={handleChange}
             placeholder="Number of Computers"
-            className="w-full border rounded-lg p-2 mt-2"
+            className="h-[55px] w-full px-4 py-2 border border-gray-200 rounded-lg  focus:outline-none placeholder-gray-400 focus:border-primary-400"
           />
+          </div>
         )}
       </div>
 
       {/* File Uploads */}
       <div>
-        <label className="block text-sm font-medium">
+        <label className="left-3 bg-white px-1 text-sm text-gray-500">
           School Registration Certificate
         </label>
         <input type="file" name="schoolRegCertificate" onChange={handleChange} />
@@ -675,7 +756,7 @@ function InstituteForm({
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Institute PAN</label>
+        <label className="left-3 bg-white px-1 text-sm text-gray-500">Institute PAN</label>
         <input type="file" name="institutePAN" onChange={handleChange} />
         {errors.institutePAN && (
           <p className="text-red-500 text-sm">{errors.institutePAN}</p>

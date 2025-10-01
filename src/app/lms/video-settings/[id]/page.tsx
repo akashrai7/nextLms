@@ -451,7 +451,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
                          Thumbnail (≤ 500KB)
                         </label>
             <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0] || null, "thumbnail")} />
-            {thumbnailPreview && <div className="mt-2"><img src={thumbnailPreview} alt="thumb" className="w-24 h-16 object-cover rounded" /></div>}
+            {thumbnailPreview && <div className="mt-2"><Image src={thumbnailPreview} alt="thumb" className="w-24 h-16 object-cover rounded" /></div>}
           </div>
         </div>
           <div>
@@ -460,7 +460,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
                          Cover Photo (≤ 500KB)
                         </label>
             <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0] || null, "cover")} />
-            {coverPreview && <div className="mt-2"><img src={coverPreview} alt="cover" className="w-24 h-16 object-cover rounded" /></div>}
+            {coverPreview && <div className="mt-2"><Image src={coverPreview} alt="cover" className="w-24 h-16 object-cover rounded" /></div>}
           </div>
         </div>
           
@@ -470,7 +470,7 @@ const res = await fetch(`/api/courses/${courseId}`, {
                          Certificate Base (≤ 5MB)
                         </label>
             <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0] || null, "certificate")} />
-            {certificatePreview && <div className="mt-2"><img src={certificatePreview} alt="cert" className="w-24 h-16 object-cover rounded" /></div>}
+            {certificatePreview && <div className="mt-2"><Image src={certificatePreview} alt="cert" className="w-24 h-16 object-cover rounded" /></div>}
           </div>
         </div>
         </div>
