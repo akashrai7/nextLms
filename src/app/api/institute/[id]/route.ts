@@ -7,7 +7,8 @@ import { parseForm } from "@/lib/fileUpload";
 export async function GET(req: NextRequest, context: any) {
   await dbConnect();
   try {
-    const { id } = context.params;
+    const params = await context.params; // ✅ Await params
+    const { id } = params;
     const institute = await Institute.findById(id);
 
     if (!institute) {
@@ -21,13 +22,23 @@ export async function GET(req: NextRequest, context: any) {
 }
 
 // ✅ UPDATE
+function normalizeFields(fields: any) {
+  const normalized: any = {};
+  Object.keys(fields).forEach((key) => {
+    const value = fields[key];
+    normalized[key] = Array.isArray(value) ? value[0] : value;
+  });
+  return normalized;
+}
+
 export async function PUT(req: NextRequest, context: any) {
   await dbConnect();
   try {
-    const { id } = context.params;
-    const { fields, files } = await parseForm(req);
+    const params = await context.params; // ✅ Await params
+    const { id } = params;
 
-    const updateData: any = { ...fields };
+    const { fields, files } = await parseForm(req);
+    const updateData: any = normalizeFields(fields);
 
     if (files.schoolRegCertificate) {
       updateData.schoolRegCertificate = files.schoolRegCertificate.newFilename;
@@ -52,7 +63,8 @@ export async function PUT(req: NextRequest, context: any) {
 export async function DELETE(req: NextRequest, context: any) {
   await dbConnect();
   try {
-    const { id } = context.params;
+    const params = await context.params; // ✅ Await params
+    const { id } = params;
     const institute = await Institute.findByIdAndDelete(id);
 
     if (!institute) {

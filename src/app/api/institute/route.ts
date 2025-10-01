@@ -52,10 +52,7 @@ export async function GET() {
   await dbConnect();
   try {
     const institutes = await Institute.find()
-      .populate("instituteType")
-      .populate("affiliationBoard")
-      .populate("state")
-      .populate("district");
+      .sort({ createdAt: -1 });
 
     return NextResponse.json({ success: true, data: institutes });
   } catch (err: any) {
@@ -63,3 +60,7 @@ export async function GET() {
   }
 }
 
+// .populate("instituteType")
+//       .populate("affiliationBoard") 
+//       .populate("state")
+//       .populate("district")

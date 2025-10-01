@@ -1,15 +1,231 @@
 "use client";
 import { useState, useEffect } from "react";
 
+// ----------------- Institute Page -----------------
 export default function InstitutePage() {
+  const [institutes, setInstitutes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
+  // Pagination + Search
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingInstitute, setEditingInstitute] = useState<any | null>(null);
+
+  // 🔹 Fetch all institutes
+  const fetchInstitutes = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/institute");
+      const data = await res.json();
+      if (data.success) {
+        setInstitutes(data.data || []);
+      } else {
+        setErrorMsg(data.message || "Failed to load institutes");
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchInstitutes();
+  }, []);
+
+  // 🔹 Delete Institute
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this institute?")) return;
+    try {
+      const res = await fetch(`/api/institute/${id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (data.success) {
+        setSuccessMsg("Deleted successfully");
+        fetchInstitutes();
+      } else {
+        setErrorMsg(data.message || "Delete failed");
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message);
+    }
+  };
+
+  // 🔹 Filter + Pagination
+  const filteredData = institutes.filter(
+    (inst) =>
+      inst.name.toLowerCase().includes(search.toLowerCase()) ||
+      inst.city?.toLowerCase().includes(search.toLowerCase()) ||
+      inst.principalName?.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Add Institute</h1>
-      <InstituteForm />
+      <h1 className="text-xl font-bold mb-4">Manage Institutes</h1>
+
+      {/* Success & Error */}
+      {successMsg && <p className="text-green-600 mb-2">{successMsg}</p>}
+      {errorMsg && <p className="text-red-600 mb-2">{errorMsg}</p>}
+
+      <div className="flex justify-between items-center mb-4">
+        {/* Add Button */}
+        <button
+          onClick={() => {
+            setEditingInstitute(null);
+            setIsModalOpen(true);
+          }}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+        >
+          + Add Institute
+        </button>
+
+        {/* Search */}
+        <input
+          type="text"
+          placeholder="Search by name, city, principal..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1);
+          }}
+          className="border rounded-lg px-3 py-2 w-1/3"
+        />
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full border border-gray-300">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="border px-4 py-2">#</th>
+              <th className="border px-4 py-2">Name</th>
+              <th className="border px-4 py-2">Principal</th>
+              <th className="border px-4 py-2">Phone</th>
+              <th className="border px-4 py-2">City</th>
+              <th className="border px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr>
+                <td colSpan={6} className="text-center p-4">
+                  Loading...
+                </td>
+              </tr>
+            ) : paginatedData.length > 0 ? (
+              paginatedData.map((inst, idx) => (
+                <tr key={inst._id}>
+                  <td className="border px-4 py-2">
+                    {(currentPage - 1) * itemsPerPage + idx + 1}
+                  </td>
+                  <td className="border px-4 py-2">{inst.name}</td>
+                  <td className="border px-4 py-2">{inst.principalName}</td>
+                  <td className="border px-4 py-2">{inst.officialMobile}</td>
+                  <td className="border px-4 py-2">{inst.city}</td>
+                  <td className="border px-4 py-2 space-x-2">
+                    <button
+                      onClick={() => {
+                        setEditingInstitute(inst);
+                        setIsModalOpen(true);
+                      }}
+                      className="px-3 py-1 bg-yellow-500 text-white rounded"
+                    >
+                      Edit
+                    </button>
+                    {/* <button
+                      onClick={() => handleDelete(inst._id)}
+                      className="px-3 py-1 bg-red-600 text-white rounded"
+                    >
+                      Delete
+                    </button> */}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="text-center p-4">
+                  No records found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-4 gap-2">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+            className="px-3 py-1 border rounded disabled:opacity-50"
+          >
+            Prev
+          </button>
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentPage(idx + 1)}
+              className={`px-3 py-1 border rounded ${
+                currentPage === idx + 1
+                  ? "bg-blue-600 text-white"
+                  : "bg-white"
+              }`}
+            >
+              {idx + 1}
+            </button>
+          ))}
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+            className="px-3 py-1 border rounded disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      )}
+
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-bold">
+                {editingInstitute ? "Edit Institute" : "Add Institute"}
+              </h2>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-red-500 font-bold"
+              >
+                ✕
+              </button>
+            </div>
+            <InstituteForm
+              defaultValues={editingInstitute}
+              onSubmitSuccess={() => {
+                setIsModalOpen(false);
+                fetchInstitutes();
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
+// ----------------- Institute Form -----------------
 function InstituteForm({
   defaultValues,
   onSubmitSuccess,
@@ -50,20 +266,23 @@ function InstituteForm({
   const [instituteTypes, setInstituteTypes] = useState<any[]>([]);
   const [affiliationBoards, setAffiliationBoards] = useState<any[]>([]);
   const [trainingModeBoards, setTrainingModeBoards] = useState<any[]>([]);
-  const [trainingLanguageBoards, setTrainingLanguageBoards] = useState<any[]>([]);
+  const [trainingLanguageBoards, setTrainingLanguageBoards] = useState<any[]>(
+    []
+  );
   const [states, setStates] = useState<any[]>([]);
   const [districts, setDistricts] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchDropdowns = async () => {
       try {
-        const [typesRes, boardsRes, modeRes, langRes, statesRes] = await Promise.all([
-          fetch("/api/settings/institute_type").then((r) => r.json()),
-          fetch("/api/settings/affiliation_board").then((r) => r.json()),
-          fetch("/api/settings/training_mode").then((r) => r.json()),
-          fetch("/api/settings/training_language").then((r) => r.json()),
-          fetch("/api/settings/state").then((r) => r.json()),
-        ]);
+        const [typesRes, boardsRes, modeRes, langRes, statesRes] =
+          await Promise.all([
+            fetch("/api/settings/institute_type").then((r) => r.json()),
+            fetch("/api/settings/affiliation_board").then((r) => r.json()),
+            fetch("/api/settings/training_mode").then((r) => r.json()),
+            fetch("/api/settings/training_language").then((r) => r.json()),
+            fetch("/api/settings/state").then((r) => r.json()),
+          ]);
 
         setInstituteTypes(typesRes.data || []);
         setAffiliationBoards(boardsRes.data || []);
@@ -121,10 +340,13 @@ function InstituteForm({
         if (form[key]) formData.append(key, form[key]);
       });
 
-      const res = await fetch("/api/institute", {
-        method: defaultValues ? "PUT" : "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        defaultValues ? `/api/institute/${defaultValues._id}` : "/api/institute",
+        {
+          method: defaultValues ? "PUT" : "POST",
+          body: formData,
+        }
+      );
 
       const data = await res.json();
       if (data.success) {
@@ -166,60 +388,48 @@ function InstituteForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-6 bg-white rounded-xl shadow-md space-y-6"
+      className="p-4 bg-white rounded-xl shadow-md space-y-6"
     >
-      <h2 className="text-xl font-bold">
-        {defaultValues ? "Edit Institute" : "Add Institute"}
-      </h2>
-
-      {/* Messages */}
-      
       {successMsg && <p className="text-green-600">{successMsg}</p>}
       {errorMsg && <p className="text-red-600">{errorMsg}</p>}
-      
-    <div className="grid grid-cols-2 gap-4"> 
-      {/* Institute Name */}
-      <div>
-        <label className="block text-sm font-medium">Institute Name</label>
-        <input
-          type="text"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-2"
-          required
-        />
-      </div>
-    </div>
 
-    <div className="grid grid-cols-2 gap-4"> 
-      {/* School Code */}
-      <div>
-        <label className="block text-sm font-medium">School Code (optional)</label>
-        <input
-          type="text"
-          name="schoolCode"
-          value={form.schoolCode}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-2"
-        />
-      </div>
-
-      {/* Principal Name */}
-      <div>
-        <label className="block text-sm font-medium">Principal Name</label>
-        <input
-          type="text"
-          name="principalName"
-          value={form.principalName}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-2"
-          required
-        />
-      </div>
-    </div>
-      {/* Contact Info */}
+      {/* ---- All Fields ---- */}
       <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium">Institute Name</label>
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">School Code</label>
+          <input
+            type="text"
+            name="schoolCode"
+            value={form.schoolCode}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium">Principal Name</label>
+          <input
+            type="text"
+            name="principalName"
+            value={form.principalName}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+            required
+          />
+        </div>
         <div>
           <label className="block text-sm font-medium">Official Mobile</label>
           <input
@@ -231,11 +441,11 @@ function InstituteForm({
             required
           />
         </div>
+      </div>
 
+      <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">
-            Alternate Mobile (optional)
-          </label>
+          <label className="block text-sm font-medium">Alternate Mobile</label>
           <input
             type="text"
             name="alternateMobile"
@@ -244,89 +454,41 @@ function InstituteForm({
             className="w-full border rounded-lg p-2"
           />
         </div>
+        <div>
+          <label className="block text-sm font-medium">Official Email</label>
+          <input
+            type="email"
+            name="officialEmail"
+            value={form.officialEmail}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+          />
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">  
-        {/* official Email */}
-      <div>
-        <label className="block text-sm font-medium">official Email</label>
-        <input
-          type="email"
-          name="officialEmail"
-          value={form.officialEmail}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-2"
-        />
-      </div>
-
-       {/* institutePhone */}
-      <div>
-        <label className="block text-sm font-medium">Tnstitute Phone</label>
-        <input
-          type="text"
-          name="institutePhone"
-          value={form.institutePhone}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-2"
-        />
-      </div> 
-    </div>
-
-    <div className="grid grid-cols-2 gap-4"> 
- {/* official Website */}
-      <div>
-        <label className="block text-sm font-medium">official Website</label>
-        <input
-          type="text"
-          name="officialWebsite"
-          value={form.officialWebsite}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-2"
-        />
-      </div> 
-
-      </div>
-
-      {/* Dropdowns */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium">Institute Type</label>
-          <select
-            name="instituteType"
-            value={form.instituteType}
+          <label className="block text-sm font-medium">Institute Phone</label>
+          <input
+            type="text"
+            name="institutePhone"
+            value={form.institutePhone}
             onChange={handleChange}
             className="w-full border rounded-lg p-2"
-            required
-          >
-            <option value="">Select</option>
-            {instituteTypes.map((t) => (
-              <option key={t._id} value={t._id}>
-                {t.name}
-              </option>
-            ))}
-          </select>
+          />
         </div>
-
         <div>
-          <label className="block text-sm font-medium">Affiliation Board</label>
-          <select
-            name="affiliationBoard"
-            value={form.affiliationBoard}
+          <label className="block text-sm font-medium">Website</label>
+          <input
+            type="text"
+            name="officialWebsite"
+            value={form.officialWebsite}
             onChange={handleChange}
             className="w-full border rounded-lg p-2"
-            required
-          >
-            <option value="">Select</option>
-            {affiliationBoards.map((b) => (
-              <option key={b._id} value={b._id}>
-                {b.name}
-              </option>
-            ))}
-          </select>
+          />
         </div>
       </div>
 
-      {/* Address */}
       <div>
         <label className="block text-sm font-medium">Full Address</label>
         <textarea
@@ -334,8 +496,30 @@ function InstituteForm({
           value={form.fullAddress}
           onChange={handleChange}
           className="w-full border rounded-lg p-2"
-          required
-        ></textarea>
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium">City</label>
+          <input
+            type="text"
+            name="city"
+            value={form.city}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Pincode</label>
+          <input
+            type="text"
+            name="pincode"
+            value={form.pincode}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+          />
+        </div>
       </div>
 
       {/* State & District */}
@@ -357,7 +541,6 @@ function InstituteForm({
             ))}
           </select>
         </div>
-
         <div>
           <label className="block text-sm font-medium">District</label>
           <select
@@ -374,35 +557,46 @@ function InstituteForm({
             ))}
           </select>
         </div>
-</div>
-<div className="grid grid-cols-2 gap-4">
-        {/* City */}
-      <div>
-        <label className="block text-sm font-medium">City</label>
-        <input
-          type="text"
-          name="city"
-          value={form.city}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-2"
-        />
-      </div> 
-
-       {/* Pin Code */}
-      <div>
-        <label className="block text-sm font-medium">Pin Code</label>
-        <input
-          type="text"
-          name="pincode"
-          value={form.pincode}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-2"
-        />
       </div>
 
-</div>
+      {/* Dropdowns */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium">Institute Type</label>
+          <select
+            name="instituteType"
+            value={form.instituteType}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+            required
+          >
+            <option value="">Select</option>
+            {instituteTypes.map((t) => (
+              <option key={t._id} value={t._id}>
+                {t.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Affiliation Board</label>
+          <select
+            name="affiliationBoard"
+            value={form.affiliationBoard}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+            required
+          >
+            <option value="">Select</option>
+            {affiliationBoards.map((b) => (
+              <option key={b._id} value={b._id}>
+                {b.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
-      {/* Training Mode & Language */}
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium">Training Mode</label>
@@ -488,13 +682,14 @@ function InstituteForm({
         )}
       </div>
 
-      {/* Submit */}
-      <button
-        type="submit"
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-      >
-        {defaultValues ? "Update" : "Save"}
-      </button>
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+        >
+          {defaultValues ? "Update" : "Save"}
+        </button>
+      </div>
     </form>
   );
 }
