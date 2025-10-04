@@ -105,6 +105,8 @@ export interface IUser extends Document {
   category?: string;
   disability?: string;
   photo?: string;
+  academicSession?: string;
+  country?: string;
   updatesHistory: IUpdateHistory[];
 }
 
@@ -148,7 +150,8 @@ const UserSchema = new Schema<IUser>(
     category: String,
     disability: String,
     photo: String,
-
+    academicSession: String,
+    country: String,
     // ✅ Updates history
     updatesHistory: {
       type: [UpdateHistorySchema],

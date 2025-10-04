@@ -156,7 +156,8 @@ export async function POST(req: Request) {
     }
 
     // ✅ Step 4: Generate registration ID
-    const registrationId = await generateRegistrationId(role);
+   // const registrationId = await generateRegistrationId(role);
+    const registrationId = await generateRegistrationId();
 
     // ✅ Step 5: Hash password (faster in dev mode)
     const saltRounds = process.env.NODE_ENV === "production" ? 10 : 8;

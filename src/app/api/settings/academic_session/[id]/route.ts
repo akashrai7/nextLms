@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/db";
-import Affiliation_board from "@/models/Affiliation_board";
+import Academic_session from "@/models/Academic_session";
 
 // ➡️ Update
 // export async function PUT(req: Request, { params }: { params: { id: string } }) {
@@ -8,12 +8,12 @@ export async function PUT(_req: Request, { params }: any) {
   try {
     await dbConnect();
     const body = await _req.json();
-    const affiliation_board = await Affiliation_board.findByIdAndUpdate(params.id, body, { new: true });
+    const academic_session = await Academic_session.findByIdAndUpdate(params.id, body, { new: true });
 
-    if (!affiliation_board) {
+    if (!academic_session) {
       return NextResponse.json({ ok: false, message: "Not found" }, { status: 404 });
     }
-    return NextResponse.json({ ok: true, data: affiliation_board });
+    return NextResponse.json({ ok: true, data: academic_session });
   } catch (err: any) {
     return NextResponse.json({ ok: false, message: err.message }, { status: 500 });
   }
@@ -24,9 +24,9 @@ export async function PUT(_req: Request, { params }: any) {
 export async function DELETE(_req: Request, { params }: any) {
   try {
     await dbConnect();
-    const affiliation_board = await Affiliation_board.findByIdAndDelete(params.id);
+    const academic_session = await Academic_session.findByIdAndDelete(params.id);
 
-    if (!affiliation_board) {
+    if (!academic_session) {
       return NextResponse.json({ ok: false, message: "Not found" }, { status: 404 });
     }
     return NextResponse.json({ ok: true, message: "Deleted successfully" });
