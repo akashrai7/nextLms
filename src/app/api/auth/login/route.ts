@@ -608,7 +608,7 @@ export async function POST(req: Request) {
     // 🔹 response + cookie
     const res = NextResponse.json({
       ok: true,
-      message: "Login successful",
+      message: "Login successful..",
       data: {
         token, // 👈 ab token frontend ko milega
         registrationId: user.registrationId,
