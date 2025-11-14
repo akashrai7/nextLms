@@ -109,7 +109,7 @@ export default function LoginPage() {
       localStorage.setItem("token", token);
       console.log("✅ Token saved:", token);
 
-      setMessage({ type: "success", text: data.message || "Login successful" });
+      setMessage({ type: "success", text: data.message || "Login successful." });
 
       // ✅ Redirect by role
       const role = data.user?.role || data.data?.role;
