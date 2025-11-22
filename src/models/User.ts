@@ -108,6 +108,7 @@ export interface IUser extends Document {
   academicSession?: string;
   country?: string;
   updatesHistory: IUpdateHistory[];
+  pdf?: string;
 }
 
 const UpdateHistorySchema = new Schema<IUpdateHistory>(
@@ -130,7 +131,7 @@ const UserSchema = new Schema<IUser>(
     password: { type: String, required: true },
     role: { type: String, enum: ["admin", "teacher", "student"], required: true },
     registrationId: { type: String, required: true, unique: true },
-
+    pdf: { type: String,  required: false},
     fatherName: String,
     motherName: String,
     gender: String,

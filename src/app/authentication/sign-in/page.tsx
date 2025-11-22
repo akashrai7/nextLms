@@ -70,8 +70,6 @@ export default function LoginPage() {
                 src="/images/sign-in.jpg"
                 alt="sign-in-image"
                 className="rounded-[25px]"
-                width={636}
-                height={790}
               />
             </div>
 

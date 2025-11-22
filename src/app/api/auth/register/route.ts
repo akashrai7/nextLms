@@ -98,6 +98,7 @@ export async function POST(req: Request) {
 }
 */
 
+/*a
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
@@ -197,5 +198,149 @@ export async function POST(req: Request) {
       { ok: false, message: err?.message || "Registration failed" },
       { status: 500 }
     );
+  }
+}
+*/
+
+import { NextResponse } from "next/server";
+import { z } from "zod";
+import bcrypt from "bcryptjs";
+import { dbConnect } from "@/lib/db";
+import User from "@/models/User";
+import { generateRegistrationId } from "@/lib/id";
+import { writeFile } from "fs/promises";
+import path from "path";
+
+// ----------------------
+// VALIDATION SCHEMA
+// ----------------------
+const RegistrationSchema = z
+  .object({
+    role: z.enum(["teacher", "student"]).default("student"),
+    firstName: z.string().min(2, "First name too short").max(50),
+    lastName: z.string().min(2, "Last name too short").max(50),
+    dob: z.string().refine((v) => !Number.isNaN(Date.parse(v)), "Invalid date"),
+    email: z.string().email("Invalid email"),
+    mobile: z.string().regex(/^[6-9]\d{9}$/, "Invalid Indian mobile"),
+    password: z
+      .string()
+      .min(8, "Min 8 chars")
+      .regex(/[A-Z]/, "At least 1 uppercase")
+      .regex(/[a-z]/, "At least 1 lowercase")
+      .regex(/\d/, "At least 1 number"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Passwords do not match",
+  });
+
+// ----------------------
+// REGISTER CONTROLLER
+// ----------------------
+
+export async function POST(req: Request) {
+  try {
+    // 🟢 Step 1: Parse as FormData (NOT JSON)
+    const formData = await req.formData();
+
+    // Extract all fields
+    const body = {
+      role: formData.get("role"),
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      dob: formData.get("dob"),
+      email: formData.get("email"),
+      mobile: formData.get("mobile"),
+      password: formData.get("password"),
+      confirmPassword: formData.get("confirmPassword"),
+    };
+
+    // 🟢 Step 2: Validate the fields using Zod
+    const parsed = RegistrationSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { ok: false, errors: parsed.error.flatten().fieldErrors },
+        { status: 400 }
+      );
+    }
+
+    // 🟢 Step 3: Get PDF file
+    const document = formData.get("document");
+
+    let pdfUrl = null;
+
+   if (document && document instanceof File) {
+
+  if (document.type !== "application/pdf") {
+    return NextResponse.json(
+      { ok: false, message: "Only PDF files allowed" },
+      { status: 400 }
+    );
+  }
+
+  const bytes = await document.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  const fileName = `${Date.now()}-${document.name}`;
+  const filePath = path.join(process.cwd(), "public/uploads", fileName);
+
+  await writeFile(filePath, buffer);
+
+  pdfUrl = "/uploads/" + fileName;
+}
+
+
+    // 🟢 Step 4: Connect to DB
+    await dbConnect();
+
+    // 🟢 Step 5: Check existing user
+    const { email, mobile, firstName, lastName, role, dob, password } = parsed.data;
+
+    const existing = await User.findOne({ $or: [{ email }, { mobile }] });
+    if (existing) {
+      return NextResponse.json(
+        { ok: false, message: "Email or Mobile already exists" },
+        { status: 409 }
+      );
+    }
+
+    // 🟢 Step 6: Generate ID
+    const registrationId = await generateRegistrationId();
+
+    // 🟢 Step 7: Hash password
+    const saltRounds = process.env.NODE_ENV === "production" ? 10 : 8;
+    const hash = await bcrypt.hash(password, saltRounds);
+
+    // 🟢 Step 8: Save User
+    const user = await User.create({
+      registrationId,
+      role,
+      firstName,
+      lastName,
+      dob: new Date(dob),
+      email,
+      mobile,
+      password: hash,
+      pdf: pdfUrl,
+    });
+
+    return NextResponse.json(
+      {
+        ok: true,
+        message: "Registration successful!",
+        data: {
+          registrationId: user.registrationId,
+          pdf: user.pdf,
+        },
+      },
+      { status: 201 }
+    );
+  } catch (err: any) {
+    console.log("REGISTER_ERROR", err);
+    return NextResponse.json(
+    { ok: false, message: err.message || "Registration failed" },
+    { status: 500 }
+  );
   }
 }

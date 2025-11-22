@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import axios from "axios";
-import type { AxiosError } from "axios"; // सही तरीका (type import)
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -16,13 +13,26 @@ export default function RegisterPage() {
     password: "",
     confirmPassword: "",
     role: "student",
+    document: null as File | null,
   });
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: string; text: string } | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // 🟢 PDF upload handler
+  const handleFileChange = (e: any) => {
+    const file = e.target.files?.[0] || null;
+
+    if (file && file.type !== "application/pdf") {
+      setMessage({ type: "error", text: "Only PDF files are allowed!" });
+      return;
+    }
+
+    setForm({ ...form, document: file });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,30 +41,23 @@ export default function RegisterPage() {
     setMessage(null);
 
     try {
-      interface ApiResponse {
-        ok: boolean;
-        message?: string;
-        errors?: Record<string, string[]>;
-      }
+      const formData = new FormData();
+      Object.entries(form).forEach(([key, value]) => {
+        if (value !== null) {
+          formData.append(key, value as any);
+        }
+      });
 
-      const res = await axios.post<ApiResponse>("/api/auth/register", form);
+      const res = await axios.post("/api/auth/register", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
       setMessage({ type: "success", text: res.data.message || "Registration successful" });
-    } catch (error) {
-      const err = error as AxiosError<any>;
-
-      if (err.response?.data?.errors) {
-        // Flatten Zod validation errors into one string
-        const allErrors = Object.values(err.response.data.errors)
-          .flat()
-          .filter(Boolean)
-          .join(", ");
-        setMessage({ type: "error", text: allErrors || "Invalid input" });
-      } else {
-        setMessage({
-          type: "error",
-          text: err.response?.data?.message || "Something went wrong",
-        });
-      }
+    } catch (error: any) {
+      setMessage({
+        type: "error",
+        text: error.response?.data?.message || "Something went wrong",
+      });
     } finally {
       setLoading(false);
     }
@@ -65,18 +68,16 @@ export default function RegisterPage() {
       <div className="auth-main-content bg-white dark:bg-[#0a0e19] py-[60px] md:py-[80px] lg:py-[120px] xl:py-[135px]">
         <div className="mx-auto px-[12.5px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1255px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[25px] items-center">
-            <div className="xl:ltr:-mr-[25px] xl:rtl:-ml-[25px] 2xl:ltr:-mr-[45px] 2xl:rtl:-ml-[45px] rounded-[25px] order-2 lg:order-1">
+            {/* <div className="xl:ltr:-mr-[25px] xl:rtl:-ml-[25px] 2xl:ltr:-mr-[45px] 2xl:rtl:-ml-[45px] rounded-[25px] order-2 lg:order-1">
               <Image
                 src="/images/sign-up.jpg"
                 alt="sign-up-image"
                 className="rounded-[25px]"
-                width={646}
-                height={804}
               />
-            </div>
+            </div> */}
 
             <div className="xl:ltr:pl-[90px] xl:rtl:pr-[90px] 2xl:ltr:pl-[120px] 2xl:rtl:pr-[120px] order-1 lg:order-2">
-              <Image
+              {/* <Image
                 src="/images/logo.png"
                 alt="logo"
                 className="inline-block dark:hidden"
@@ -89,15 +90,15 @@ export default function RegisterPage() {
                 className="hidden dark:inline-block"
                 width={142}
                 height={38}
-              />
+              /> */}
 
               <div className="my-[17px] md:my-[25px]">
                 <h1 className="!font-semibold !text-[22px] md:!text-xl lg:!text-2xl !mb-[5px] md:!mb-[7px]">
-                  Sign Up to User Dashboard
+                  Registration Form
                 </h1>
-                <p className="font-medium lg:text-md text-[#445164] dark:text-gray-400">
+                {/* <p className="font-medium lg:text-md text-[#445164] dark:text-gray-400">
                   Sign Up with social account or enter your details
-                </p>
+                </p> */}
               </div>
 
               
@@ -230,7 +231,19 @@ export default function RegisterPage() {
                 />
                
               </div>
-                 {/* Message box */}
+                 <div className="mb-[15px] relative">
+                    <label className="mb-[10px] md:mb-[12px] text-black dark:text-white font-medium block">
+                    Upload Document (PDF Only)
+                    </label>
+                    
+                    <input
+            type="file"
+            name="document"
+            accept="application/pdf"
+            onChange={handleFileChange}
+            className="h-[55px] rounded-md border px-[17px]"
+          />
+                  </div>
               {message && (
                 <div
                   className={`mb-4 p-3 rounded ${
@@ -253,7 +266,7 @@ export default function RegisterPage() {
 
              </form>  
            
-              <p className="!leading-[1.6]">
+              {/* <p className="!leading-[1.6]">
                 Already have an account.{" "}
                 <Link
                   href="/authentication/sign-in"
@@ -261,7 +274,7 @@ export default function RegisterPage() {
                 >
                   Sign In
                 </Link>
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
