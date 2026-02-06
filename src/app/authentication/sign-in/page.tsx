@@ -78,15 +78,11 @@ export default function LoginPage() {
                 src="/images/logo.png"
                 alt="logo"
                 className="inline-block dark:hidden"
-                width={172}
-                height={48}
               />
               <Image
                 src="/images/logo.png"
                 alt="logo"
                 className="hidden dark:inline-block"
-                width={172}
-                height={48}
               />
 
               <div className="my-[17px] md:my-[25px]">
